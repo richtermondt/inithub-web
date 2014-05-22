@@ -1,0 +1,40 @@
+     Inithub-web
+
+Licensing
+---------
+
+Please see the file called COPYING.
+The copyright holder(s) may consider permitting uses outside of the license terms on a case-by-case basis
+  
+The Latest Version
+------------------
+
+Details of the latest version can be found on the Inithub-web project page 
+under http:///.
+
+JavaScript libraries
+--------------------
+
+jQuery v1.8.1,MIT License,
+jQuery Star Rating Plugin v3.14 - MIT License
+jQuery UI - v1.8.23 - MIT License
+NicEdit - Micro Inline WYSIWYG - MIT License
+Chosen - Version 0.9.8 - MIT License
+RequireJS - new BSD, and MIT
+
+Python libraries
+----------------
+
+Django 1.5.2 - BSD License
+django-axes 1.2.6 - MIT License
+django-tastypie 0.10.0,BSD License,Python 2.6+ or Python 3.3+
+stripe 1.9.3 
+python-memcached 1.53 - Python Software Foundation License
+MySQL-python 1.2.4 - GPL License
+python-mimeparse 0.1.4 - MIT License
+
+Contacts
+--------
+
+Rich Termondt - rtermondt@gmail.com
+
