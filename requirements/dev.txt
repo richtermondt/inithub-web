@@ -1,0 +1,4 @@
+-r base.txt
+
+Django==1.5.2
+
