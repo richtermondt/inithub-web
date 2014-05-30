@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block side_nav %}
+<ul>
+	<li><a href="/support/ticket/new/">New Ticket</a></li>
+	<li><a href="/support/ticket/list/">My Tickets</a></li>
+	<li><a href="/support/faq/">FAQ</a></li>
+	<li><a href="/support/guide/">User Guide</a></li>
+	{% if user.is_staff %}
+		<li><a href="/support/staff/">Support Staff</a></li>
+		<li><a href="/support/invitation/list/">Access Requests</a></li>
+		<li><a href="/admin/">Admin Site</a></li>
+	{% endif %}
+</ul>
+{% endblock side_nav %}

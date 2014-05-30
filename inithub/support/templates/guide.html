@@ -1,0 +1,59 @@
+{% extends "support_base.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/css/smoothness/jquery-ui-1.8.23.custom.css" type="text/css">
+{% endblock css %}
+{% block javascript %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $("#accordion").accordion({
+    	collapsible: true,
+      	active: false,
+      	autoHeight: false
+    });
+  });
+</script>
+  					
+{% endblock javascript %}
+
+{% block content %}
+
+<h1>Getting Started Guide</h1>
+{% if system_message %}
+	<p><strong>{{ system_message }}</strong></p>
+{% endif %}
+{% if new_user %}
+	<p><strong>Welcome to InitHub!</strong></p>
+	<p>To get the most out of InitHub we recommend completing the following items:</p>
+{% endif %}
+<div id="accordion">
+	<h3><a href="#">Confirm Account</a></h3>
+	<div>
+		<p>
+		Check the email account you register with and confirm your account by clicking the included link. Your account will be disabled if you do not confirm your account within 30 days.
+		</p>
+	</div>
+	<h3><a href="#">Select Services you can provide to the community</a></h3>
+	<div>
+		<p>
+		Click "Profile" on top navigation, then click "Services" on left navigation.
+		</p>
+	</div>
+	<h3><a href="#">Select your Interests</a></h3>
+	<div>
+		<p>
+		Click "Profile" on top navigation, then click "Interests" on left navigation.
+		</p>
+	</div>
+	<h3><a href="#">Select your Subscriptions</a></h3>
+	<div>
+		<p>
+		Click "Profile" on top navigation, then click "Subscriptions" on left navigation.
+		</p>
+	</div>
+</div>
+
+
+{% endblock content %}

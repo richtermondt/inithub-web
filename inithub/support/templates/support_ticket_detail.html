@@ -1,0 +1,72 @@
+{% extends "support_base.html" %}
+
+{% block content %}
+
+<h1>Support ticket detail</h1>
+{% if system_message %}<p><strong>{{ system_message }}</strong></p>{% endif %}
+<table class="box">
+<tr>
+<td>
+<span class="strong">Ticket ID:</span> {{ ticket.id }}
+</td>
+<td>
+<span class="strong">Date:</span> {{ ticket.create_date }}
+</td>
+</tr>
+<tr>
+<td colspan="2">
+<span class="strong">User:</span> {{ profile.first_name }} {{ profile.last_name }}
+</td>
+</tr>
+<tr>
+<td colspan="2">
+<span class="strong">Subject:</span> {{ ticket.short_desc }}
+</td>
+</tr>
+<tr>
+<td colspan="2">
+<span class="strong">Description:</span>
+</td>
+</tr>
+<tr>
+<td colspan="2">
+{{ ticket.comment }}
+</td>
+</tr>
+</table>
+<div class="ticket_detail_options">
+<a href="/support/ticket/item/new/{{ ticket.id }}/">Reply</a>{% if user.is_staff %} | <a href="/support/ticket/resolve/{{ ticket.id }}/">Resolve</a>{%endif%}
+</div>
+{% for item in ticket_items %}
+<br/>
+<table class="box">
+	<tr>
+		<td>
+		<span class="strong">Response ID:</span> {{ item.id }}
+		</td>
+		<td>
+		<span class="strong">Date:</span> {{ item.create_date }}
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+		<span class="strong">Profile:</span> {{ item.profile__first_name }} {{ item.profile__last_name }}
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+		<span class="strong">Comment</span>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+		{{ item.comment }}
+		</td>
+	</tr>
+</table>
+
+{% endfor %}
+<div class="ticket_detail_options">
+<a href="/support/ticket/item/new/{{ ticket.id }}/">Reply</a>{% if user.is_staff %} | <a href="/support/ticket/resolve/{{ ticket.id }}/">Resolve</a>{%endif%}
+</div>
+{% endblock content %}

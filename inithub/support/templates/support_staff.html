@@ -1,0 +1,64 @@
+{% extends "support_base.html" %}
+{% block css %}
+<link rel="stylesheet" href="/static/css/smoothness/jquery-ui-1.8.23.custom.css" type="text/css">
+{% endblock css %}
+{% block javascript %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+<script>
+	$(function() {
+		$("button").button();
+	});
+</script>
+{% endblock javascript %}
+
+{% block content %}
+
+<h1>All Open Support Tickets</h1>
+<div class="support_search">
+			<form id="form" name="form" method="post" action="/support/staff/">{% csrf_token %}
+				<select name="search_field">
+					<option value="ticket_id">Ticket ID</option>
+					<option value="keyword">Keyword</option>
+				</select>
+				<input type="text" name="search_text">
+				<input type="submit" value="Search">
+			</form>
+</div>
+	<br/>
+{% if system_message %}<p><strong>{{ system_message }}</strong></p>{% endif %}
+<table id="ticket_list" class="data_grid_1">
+  <tr>
+    <th>Ticket #</th>
+    <th>Subject</th>
+    <th>Date</th>
+    <th>Action</th>
+  </tr>
+{% for ticket in my_tickets %}
+  <tr>
+  	<td>{{ ticket.id }}</td>
+    <td>{{ ticket.short_desc }}</td>
+    <td>{{ ticket.create_date }}</td>
+    <td><a href="/support/ticket/detail/{{ ticket.id }}/"><button type="update">Update</button></a></td>
+  </tr>
+	
+{% endfor %}
+
+</table>
+<br>
+<div class="pagination">
+    <span class="step-links">
+        {% if my_tickets.has_previous %}
+            <a href="?page={{ my_tickets.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ my_tickets.number }} of {{ my_tickets.paginator.num_pages }}.
+        </span>
+
+        {% if my_tickets.has_next %}
+            <a href="?page={{ my_tickets.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock content %}

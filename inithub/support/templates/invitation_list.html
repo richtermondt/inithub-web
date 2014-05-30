@@ -1,0 +1,57 @@
+{% extends "support_base.html" %}
+{% block css %}
+<link rel="stylesheet" href="/static/css/smoothness/jquery-ui-1.8.23.custom.css" type="text/css">
+{% endblock css %}
+{% block javascript %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+<script>
+	$(function() {
+		$("button").button();
+	});
+</script>
+{% endblock javascript %}
+
+{% block content %}
+
+<h1>Access Requests</h1>
+{% if system_message %}<p><strong>{{ system_message }}</strong></p>{% endif %}
+<form id="form" name="form" method="post" action="/support/invitation/list/">
+{% csrf_token %}
+<table id="invitation_list" class="data_grid_1">
+  <tr>
+    <th>Email</th>
+    <th>signup_key</th>
+    <th>create_date</th>
+    <th>Approve</th>
+  </tr>
+{% for invitation in invitations %}
+  <tr>
+  	<td>{{ invitation.email }}</td>
+    <td>{{ invitation.signup_key }}</td>
+    <td>{{ invitation.create_date }}</td>
+    <td><input name="invitation" value="{{ invitation.id }}" type="checkbox"></td>
+  </tr>
+{% endfor %}
+
+</table>
+<br>
+<button type="submit">Update</button>
+<br>
+<br>
+<div class="pagination">
+    <span class="step-links">
+        {% if invitations.has_previous %}
+            <a href="?page={{ invitations.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ invitations.number }} of {{ invitations.paginator.num_pages }}.
+        </span>
+
+        {% if invitations.has_next %}
+            <a href="?page={{ invitations.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock content %}

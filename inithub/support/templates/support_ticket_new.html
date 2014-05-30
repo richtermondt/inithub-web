@@ -1,0 +1,17 @@
+{% extends "support_base.html" %}
+
+{% block content %}
+
+<h1>Support ticket new</h1>
+{% if system_message %}<p><strong>{{ system_message }}</strong></p>{% endif %}
+
+<form id="form" name="form" method="post" action="/support/ticket/new/">
+{% csrf_token %}
+
+{{ form.as_p }}
+<button type="submit">Submit</button>
+</form>
+	
+{% endblock content %}
+
+

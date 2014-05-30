@@ -1,0 +1,10 @@
+Hello {{ first_name }},
+A response to support ticket id {{ ticket_id }} has been posted:
+
+{{ comment }}
+
+To respond, please login to http://www.inithub.com.
+
+Thank you for using the InitHub support system!
+
+InitHub Support team.

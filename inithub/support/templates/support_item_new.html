@@ -1,0 +1,18 @@
+{% extends "support_base.html" %}
+
+{% block content %}
+
+<h1>Support item new</h1>
+{% if system_message %}<p><strong>{{ system_message }}</strong></p>{% endif %}
+
+<form id="form" name="form" method="post" action="/support/ticket/item/new/">
+{% csrf_token %}
+<input type="hidden" name="ticket_id" value="{{ ticket_id }}">
+{{ form.as_p }}
+{% if user.is_staff %}
+
+{% endif %}
+<button type="submit">Submit</button>
+</form>
+
+{% endblock content %}
