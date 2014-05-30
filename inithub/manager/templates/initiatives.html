@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block css %}
+<link rel="stylesheet" href="/static/css/jquery.rating.css" />		
+{% endblock css %}
+
+{% block javascript %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="/static/scripts/jquery.MetaData.js"></script>
+<script src="/static/scripts/jquery.rating.js"></script>			
+{% endblock javascript %}
+
+{% block side_nav %}
+<ul>
+	<li><a href="/manager/initiative/search/">Search</a></li>
+	<li><a href="/manager/initiatives/personal/">My Initiatives</a></li>
+	<li><a href="/manager/initiative/add/">New Initiative</a></li>
+</ul>
+{% endblock side_nav %}
+
+{% block content %}
+<h1>New Initiatives</h1>
+{% if system_message %}<p class="error"><strong>{{ system_message }}</strong></p>{% endif %}
+<table id="initiative_list" class="data_grid_1">
+  <tr>
+    <th>Initiative</th>
+    <th>Sponsor</th>
+    <th>Rating</th>
+  </tr>
+
+{% for initiative in initiative_list %}
+<tr>
+    <td><a href="/manager/initiative/detail/{{initiative.uuid}}/">{{ initiative.short_desc }}</a></td>
+    <td><a href="/manager/profile/view/{{ initiative.profile__confirm_key }}/">{{ initiative.profile__first_name }} {{ initiative.profile__last_name }}</a></td>
+	<td>
+	{% if initiative.initiative_rating__rating__avg == None%}
+	None
+	{%else%}
+	<form name="form_{{ initiative.id }}" id="form_{{ initiative.id }}">
+	<input class="star {split:2}" type="radio" name="star" value="0.5" title="0.5" disabled="disabled" {% if initiative.initiative_rating__rating__avg = 0.5 %}checked="checked"{% endif %}/>
+   	<input class="star {split:2}" type="radio" name="star" value="1" title="1" disabled="disabled" {% if initiative.initiative_rating__rating__avg = 1.0 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="1.5" title="1.5" disabled="disabled" {% if initiative.initiative_rating__rating__avg = 1.2 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="2" title="2" disabled="disabled" {% if initiative.initiative_rating__rating__avg = 2.0 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="2.5" title="2.5" disabled="disabled" {% if initiative.initiative_rating__rating__avg = 2.5 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="3" title="3" disabled="disabled" {% if initiative.initiative_rating__rating__avg = 3.0 %}checked="checked"{% endif %}/>
+	<input class="star {split:2}" type="radio" name="star" value="3.5" title="3.5" disabled="disabled" {% if initiative.initiative_rating__rating__avg = 3.5 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="4" title="4" disabled="disabled" {% if initiative.initiative_rating__rating__avg = 4.0 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="4.5" title="4.5" disabled="disabled" {% if initiative.initiative_rating__rating__avg = 4.5 %}checked="checked"{% endif %}/>
+	<input class="star {split:2}" type="radio" name="star" value="5" title="5" disabled="disabled" {% if initiative.initiative_rating__rating__avg = 5.0 %}checked="checked"{% endif %}/>
+	</form>
+	{%endif%}
+	</td>
+</tr>
+
+{% endfor %}
+</table>
+<br>
+<div class="pagination">
+    <span class="step-links">
+        {% if initiative_list.has_previous %}
+            <a href="?page={{ initiative_list.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ initiative_list.number }} of {{ initiative_list.paginator.num_pages }}.
+        </span>
+
+        {% if initiative_list.has_next %}
+            <a href="?page={{ initiative_list.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock content %}

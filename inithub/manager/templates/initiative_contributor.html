@@ -1,0 +1,103 @@
+{% extends "initiatives.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/css/smoothness/jquery-ui-1.8.23.custom.css" type="text/css">
+{% endblock css %}
+{% block javascript %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+<script type="text/javascript">
+function verify(contributor_id)
+{
+	
+	document.forms["contributor_form"].elements["contributor_id"].value=contributor_id;
+	$('#dialog-confirm').dialog('open');
+	/**
+	var r = confirm("You are about to remove " + name + ", " + service +", click ok to continue...");
+	if(r==true)
+	{
+		document.forms["contributor_form"].elements["contributor_id"].value=contributor_id;
+		document.forms["contributor_form"].submit();
+	}
+	**/
+}
+</script>
+<script>
+  $(function() {
+    $( "#dialog-confirm" ).dialog({
+      resizable: false,
+      autoOpen: false,
+      height:180,
+      modal: true,
+      buttons: {
+        "Remove contributor": function() {
+          $( this ).dialog( "close" );
+          document.forms["contributor_form"].submit();
+        },
+        Cancel: function() {
+        	document.forms["contributor_form"].elements["contributor_id"].value="";
+          $( this ).dialog( "close" );
+        }
+      }
+    });
+  
+});
+</script>  					
+{% endblock javascript %}
+
+{% block side_nav %}
+<ul>
+	<li><a href="/manager/initiative/edit/{{initiative.uuid}}/">Initiative</a></li>
+	<li><a href="/manager/initiative/milestones/{{ initiative.uuid }}/">Milestones</a></li>
+	<li><a href="/manager/initiative/contributors/offer/{{initiative.uuid}}/">Service Offers</a></li>
+	<li><a href="/manager/initiative/service/{{ initiative.uuid }}/">Service Requests</a></li>
+</ul>
+{% endblock side_nav %}
+
+{% block content %}
+<div id="dialog-confirm" title="Remove Contributor?">
+  <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>This contributor will be removed from Initiative. Are you sure?</p>
+</div>
+<h1>Manage Contributors</h1>
+<h2>{{initiative.short_desc}}</h2>
+{% if system_message %}
+	<p><strong>{{ system_message }}</strong></p>
+{% endif %}
+
+{% if contributor_list %}
+<form id="contributor_form" name="contributor_form" method="post" action="/manager/initiative/contributors/">
+<input name="contributor_id" id="contributor_id" type="hidden" value="">
+<input name="uuid" id="uuid" type="hidden" value="{{initiative.uuid}}">
+{% csrf_token %}
+<table id="initiative_list" class="data_grid_1">
+  <tr>
+    <th>Contributor</th>
+    <th>Service</th>
+    <th>Action</th>
+  </tr>
+{% for contributor in contributor_list %}	
+	<tr><td>{{ contributor.profile__first_name }} {{ contributor.profile__last_name }}<td>{{ contributor.service__short_desc}}<td><a href="javascript: verify({{contributor.id}})">Remove</a></tr>
+{% endfor %}
+</table>
+</form>
+<br>
+<div class="pagination">
+    <span class="step-links">
+        {% if contributor_list.has_previous %}
+            <a href="?page={{ contributor_list.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ contributor_list.number }} of {{ contributor_list.paginator.num_pages }}.
+        </span>
+
+        {% if contributor_list.has_next %}
+            <a href="?page={{ contributor_list.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+{% else %}
+<p>No Contributors for this Initiative.</p>
+{% endif %}
+
+{% endblock content %}

@@ -1,0 +1,28 @@
+{% extends "public_menu.html" %}
+
+
+{% block content %}
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=489845494393790";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<script>
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+</script>
+<h3 style="text-align: center;">Invitation Request</h3>
+<p><strong>Thank you!</strong> Your request has been successfully added to our queue. We will notify you when your request has been processed.</p>
+<p>Visit our <a href="http://blog.inithub.com" target="_blank">blog</a>  or subscribe to our <a href="http://blog.inithub.com/feed/">rss</a> feed for the latest news and updates. You can also check out interesting content as well as updates on social media:</p>
+<table width="240" border="0" cellspacing="0" cellpadding="5">
+  <tr>
+    <td><a href="https://twitter.com/inithub" class="twitter-follow-button" data-show-count="false" data-lang="en">Follow @inithub</a></td>
+    <td><div class="fb-like" data-href="https://www.facebook.com/pages/InitHub/533556133325451" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div></td>
+  </tr>
+</table>
+
+<br/><br/>
+
+{% endblock content %}

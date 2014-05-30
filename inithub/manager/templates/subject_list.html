@@ -1,0 +1,18 @@
+{% extends "collaboration.html" %}
+
+{% block content %}
+<h1>Subject List</h1>
+{% if system_message %}<p class="error"><strong>{{ system_message }}</strong></p>{% endif %}
+<table class="data_grid_2">
+{% for subject in subjects %}
+	{% ifchanged subject.uuid %}
+		<tr><th>Initiative: {{ subject.short_desc }} <span class="small_font">(<a href="/manager/collaboration/subject/add/{{ subject.uuid }}/">Create Subject</a>)</span></th></tr>
+	{% endifchanged %}	
+	{% if subject.subject__short_desc %}
+	<tr><td><a href="/manager/collaboration/subject/messages/{{ subject.subject__id }}/">{{ subject.subject__short_desc }}</a></td></tr>
+	{% else %}
+	<tr><td>No subjects.</td></tr>
+	{% endif %}
+{% endfor %}
+</table>
+{% endblock content %}

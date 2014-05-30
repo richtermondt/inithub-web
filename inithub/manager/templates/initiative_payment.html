@@ -1,0 +1,35 @@
+{% extends "initiatives.html" %}
+
+{% block side_nav %}
+<ul>
+	<li><a href="/manager/initiative/edit/{{initiative.uuid}}/">Initiative</a></li>
+	<li><a href="/manager/initiative/milestones/{{ uuid }}/">Milestones</a></li>
+	<li><a href="/manager/initiative/contributors/{{ uuid }}/">Contributors</a></li>
+	<li><a href="/manager/initiative/contributors/offer/{{uuid}}/">Service Offers</a></li>
+	<li><a href="/manager/initiative/service/{{ uuid }}/">Service Requests</a></li>
+</ul>
+{% endblock side_nav %}
+
+{% block content %}
+<h2 style="text-align: center;">Publish Initiative - Payment Required</h2>
+<div style="text-align: center;">
+
+{% if system_message %}<p class="error"><strong>{{ system_message }}</strong></p>{% endif %}
+
+$ {{ display_fee }}
+<br/>
+<br/>
+<form action="/manager/initiative/payment/" method="POST">
+	{% csrf_token %}
+	<input type="hidden" name="uuid" value="{{ uuid }}">
+	<script
+	  src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
+	  data-key="pk_test_2fCiZTRJeWpG6BKaYOug0hnF"
+	  data-amount="{{ raw_fee }}"
+	  data-name="InitHub.com"
+	  data-description="Publish Initiative">
+	</script>
+</form>
+
+</div>
+{% endblock content %}

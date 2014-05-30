@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+<link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon" />
+<meta charset=utf-8>
+{% block title %}
+<title>InitHub - Collaborative Innovation Platform</title>
+{% endblock title %}
+{% block meta %}
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+{% endblock meta %}
+<link rel="stylesheet" href="/static/css/960.css" type="text/css">
+<link rel="stylesheet" href="/static/css/base_style.css" type="text/css">
+
+{% block css %}
+				
+{% endblock css %}
+
+{% block javascript %}
+				
+{% endblock javascript %}
+
+</head>
+{% block body_tag %}
+<body>				
+{% endblock body_tag  %}
+
+
+
+<div id="container" class="container_12">
+	<div id="header" class="grid_12">
+		<h1>
+			InitHub
+		</h1>
+	</div>
+	<div id="navigation" class="grid_12">
+		{% block top_nav %}
+		<ul>
+			<li><a href="/manager/profile/manager/">Profile</a></li>
+			<li><a href="/manager/news/">News</a></li>
+			<li><a href="/manager/collaboration/">Collaboration</a></li>
+			<li><a href="/manager/initiatives/">Initiatives</a></li>
+			<li><a href="/support/faq/">Support</a></li>
+			<li><a href="/manager/logout/">Logout</a></li>
+		</ul>
+		{% endblock top_nav %}
+	</div>
+
+
+	<div id="section-navigation" class="grid_2">
+			{% block side_nav %}
+				
+			{% endblock side_nav %}
+	</div>
+	<div id="content" class="grid_7">
+		{% block content %}
+
+		{% endblock content %}<br/><br/>
+	</div>
+	<div id="aside" class="grid_3">
+		{% block side_nav2 %}
+
+		{% endblock side_nav2 %}
+		
+	</div>
+	<div id="footer" class="grid_12">
+<div id="terms">
+<a target="inithub_static" href="/static/terms.html">Terms</a> | <a target="inithub_static" href="/static/privacy.html">Privacy</a> | <a target="inithub_static" href="/static/affiliates.html">Affiliates</a>
+</div>	
+<div id="copyright">
+	Copyright &copy; 2014 <a target="_blank" href="http://www.solutiosoft.com">Solutiosoft, LLC</a>
+</div>
+</div>
+</div>
+</body></html>
+
+
+
+
+
+
+
+
+
+

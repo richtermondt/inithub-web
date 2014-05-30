@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block css %}
+<link rel="stylesheet" href="/static/css/jquery.rating.css" />
+<link rel="stylesheet" href="/static/css/smoothness/jquery-ui-1.8.23.custom.css" type="text/css">						
+{% endblock css %}
+{% block javascript %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="/static/scripts/jquery.MetaData.js"></script>
+<script src="/static/scripts/jquery.rating.js"></script>		
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+
+{% endblock javascript %}
+
+
+{% block content %}
+
+<h1>Profile Ratings</h1>
+
+{% if system_message %}<p class="error"><strong>{{ system_message }}</strong></p>{% endif %}
+<strong><a href="/manager/profile/view/{{ profile.confirm_key }}/">{{ profile.first_name}} {{ profile.last_name}}</a></strong>
+<br>Average rating
+ 	<form name="average_rating" id="average_rating">
+ 	<input class="star {split:2}" type="radio" name="star" value="0.5" title="0.5" disabled="disabled" {% if average_rating = 0.5 %}checked="checked"{% endif %}/>
+   	<input class="star {split:2}" type="radio" name="star" value="1" title="1" disabled="disabled" {% if average_rating = 1.0 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="1.5" title="1.5" disabled="disabled" {% if average_rating = 1.2 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="2" title="2" disabled="disabled" {% if average_rating = 2.0 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="2.5" title="2.5" disabled="disabled" {% if average_rating = 2.5 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="3" title="3" disabled="disabled" {% if average_rating = 3.0 %}checked="checked"{% endif %}/>
+	<input class="star {split:2}" type="radio" name="star" value="3.5" title="3.5" disabled="disabled" {% if average_rating = 3.5 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="4" title="4" disabled="disabled" {% if average_rating = 4.0 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="4.5" title="4.5" disabled="disabled" {% if average_rating = 4.5 %}checked="checked"{% endif %}/>
+	<input class="star {split:2}" type="radio" name="star" value="5" title="5" disabled="disabled" {% if average_rating = 5.0 %}checked="checked"{% endif %}/>
+	</form><br><br>
+<hr>
+{% for rating in rating_list %}
+	<form name="form_{{ rating.id }}" id="form_{{ rating.id }}">
+	<input class="star {split:2}" type="radio" name="star" value="0.5" title="0.5" disabled="disabled" {% if rating.rating = 0.5 %}checked="checked"{% endif %}/>
+   	<input class="star {split:2}" type="radio" name="star" value="1" title="1" disabled="disabled" {% if rating.rating = 1.0 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="1.5" title="1.5" disabled="disabled" {% if rating.rating = 1.2 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="2" title="2" disabled="disabled" {% if rating.rating = 2.0 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="2.5" title="2.5" disabled="disabled" {% if rating.rating = 2.5 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="3" title="3" disabled="disabled" {% if rating.rating = 3.0 %}checked="checked"{% endif %}/>
+	<input class="star {split:2}" type="radio" name="star" value="3.5" title="3.5" disabled="disabled" {% if rating.rating = 3.5 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="4" title="4" disabled="disabled" {% if rating.rating = 4.0 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="4.5" title="4.5" disabled="disabled" {% if rating.rating = 4.5 %}checked="checked"{% endif %}/>
+	<input class="star {split:2}" type="radio" name="star" value="5" title="5" disabled="disabled" {% if rating.rating = 5.0 %}checked="checked"{% endif %}/>
+	</form><br>
+	<p>{{ rating.comments }}</p>
+{% endfor %}
+<br><br>
+<div class="pagination">
+    <span class="step-links">
+        {% if rating_list.has_previous %}
+            <a href="?page={{ rating_list.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ rating_list.number }} of {{ rating_list.paginator.num_pages }}.
+        </span>
+
+        {% if rating_list.has_next %}
+            <a href="?page={{ rating_list.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+
+{% endblock content %}

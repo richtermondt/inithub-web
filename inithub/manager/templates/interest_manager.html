@@ -1,0 +1,46 @@
+{% extends "profile_manager.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/scripts/chosen/chosen.css" />
+<link rel="stylesheet" href="/static/css/smoothness/jquery-ui-1.8.23.custom.css" type="text/css">					
+{% endblock css %}
+{% block javascript %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="/static/scripts/chosen/chosen.jquery.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>				
+{% endblock javascript %}
+
+
+{% block content %}
+<form id="form" name="form" method="post" action="/manager/profile/interest/">
+{% csrf_token %}
+<h1>Your Interests</h1>
+{% if system_message %}
+	<p><strong>{{ system_message }}</strong></p>
+{% endif %}
+<p>Select your interests. The interests you select will impact the news and opportunities that are displayed.</p>
+<select name="interest_list" data-placeholder="Choose a interest..." id='thisOne' class="chzn-select" multiple style="width:350px;" tabindex="4">
+<option value=""></option> 
+{% for interest in interest_list %}
+	<option id="{{ interest.id }}" value="{{ interest.id }}">{{ interest.short_desc }}</option> 
+{% endfor %}
+</select>
+<br>
+<button type="submit">Update</button>
+
+<script type="text/javascript"> $(".chzn-select").chosen(); $(".chzn-select-deselect").chosen({allow_single_deselect:true}); </script>
+<script type="text/javascript">
+  jQuery( function ($) {
+	 $(".chzn-select").chosen();
+	 $(".chzn-select-deselect").chosen({allow_single_deselect:true});
+	{% for interest in interest_selected %}
+		 $('#{{ interest.interest_id }}').attr('selected', true);
+	{% endfor %}
+	 $('#thisOne').trigger("liszt:updated");
+  })
+  	$(function() {
+		$("button").button();
+	});
+</script>
+</form>
+{% endblock content %}

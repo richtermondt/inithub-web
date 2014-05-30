@@ -1,0 +1,10 @@
+Hello,
+Your InitHub access request has been approved.
+
+You can create your account by navigating to the following URL:
+
+http://www.inithub.com/innohub/profile/create/{{ uid }}/
+
+Thank you!
+
+InitHub Support team.

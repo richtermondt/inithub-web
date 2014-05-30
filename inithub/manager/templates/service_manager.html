@@ -1,0 +1,46 @@
+{% extends "profile_manager.html" %}
+{% block css %}
+<link rel="stylesheet" href="/static/scripts/chosen/chosen.css" />
+<link rel="stylesheet" href="/static/css/smoothness/jquery-ui-1.8.23.custom.css" type="text/css">			
+{% endblock css %}
+
+{% block javascript %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="/static/scripts/chosen/chosen.jquery.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>				
+{% endblock javascript %}
+
+{% block content %}
+<form id="form" name="form" method="post" action="/manager/profile/service/">
+{% csrf_token %}
+<h1>Your Services</h1>
+{% if system_message %}
+	<p><strong>{{ system_message }}</strong></p>
+{% endif %}
+<p>Select the services you would like to extend to the InitHub community</p>
+<select name="service_list" data-placeholder="Choose a Service..." id='thisOne' class="chzn-select" multiple style="width:350px;" tabindex="4">
+<option value=""></option> 
+{% for service in service_list %}
+	<option id="{{ service.id }}" value="{{ service.id }}">{{ service.short_desc }}</option> 
+{% endfor %}
+</select>
+<br>
+<button type="submit">Update</button>
+
+<script type="text/javascript"> $(".chzn-select").chosen(); $(".chzn-select-deselect").chosen({allow_single_deselect:true}); </script>
+<script type="text/javascript">
+  jQuery( function ($) {
+	 $(".chzn-select").chosen();
+	 $(".chzn-select-deselect").chosen({allow_single_deselect:true});
+	{% for service in service_selected %}
+		 $('#{{ service.service_id }}').attr('selected', true);
+	{% endfor %}
+	 $('#thisOne').trigger("liszt:updated");
+  })
+  	$(function() {
+	$("button").button();
+});
+</script>
+
+</form>
+{% endblock content %}

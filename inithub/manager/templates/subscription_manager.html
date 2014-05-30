@@ -1,0 +1,27 @@
+{% extends "profile_manager.html" %}
+
+{% block content %}
+<form id="form" name="form" method="post" action="/manager/profile/subscription/">
+{% csrf_token %}
+<h1>Subscription Manager</h1>
+<p>Select the emails you would like to receive.</p>
+{% if system_message %}
+	<p><strong>{{ system_message }}</strong></p>
+{% endif %}
+	<table>
+	{% for subscription in subscriptions %}
+		<tr><td><input name="subscriptions" value="{{ subscription.id }}" type="checkbox" 
+		{% for my_sub in my_subs %}
+			{% if my_sub.subscription_id == subscription.id %}
+			 checked
+			{% endif %}
+		{% endfor %}
+		></td><td>{{ subscription.short_desc }}</td></tr>
+	{% endfor %}
+	</table>
+	<br>
+	<button type="submit">Update</button>
+
+	</form>
+
+{% endblock content %}

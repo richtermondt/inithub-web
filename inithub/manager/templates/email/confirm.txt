@@ -1,0 +1,7 @@
+Hello {{ first_name }} - Please confirm your account by navigating to the following URL:
+
+http://www.inithub.com/innohub/profile/confirm/{{ uid }}/
+
+Thank you!
+
+InitHub Support team.

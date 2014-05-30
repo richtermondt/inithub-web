@@ -1,0 +1,84 @@
+{% extends "public_menu.html" %}
+{% block css %}
+<link rel="stylesheet" href="/static/css/smoothness/jquery-ui-1.8.23.custom.css" type="text/css">					
+{% endblock css %}
+{% block javascript %}
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="/static/scripts/jquery.validate.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>	
+
+ <script>
+ $(document).ready(function(){
+   $("#signup").validate({
+   errorClass:"errors",
+   rules: {
+   	email: {
+   		required:true,
+   		email:true
+   	},
+   	password1: {
+   		required:true,
+   		minlength: 6
+   	},
+   	password2: {
+   		required:true,
+   		minlength: 6,
+   		equalTo: "#id_password1"
+   	},
+   	first_name: 'required',
+   	last_name: 'required',
+   	agree: 'required'
+   	
+   },
+   messages: {
+		first_name: "Please enter your firstname",
+		last_name: "Please enter your lastname",
+		username: {
+			required: "Please enter a username",
+			minlength: "Your username must consist of at least 2 characters"
+		},
+		password1: {
+			required: "Please provide a password",
+			minlength: "Your password must be at least 6 characters long"
+		},
+		password2: {
+			required: "Please provide a password",
+			minlength: "Your password must be at least 6 characters long",
+			equalTo: "Please enter the same password as above"
+		},
+		email: "Please enter a valid email address",
+		agree: "Please accept our Terms of Service"
+	},
+	errorPlacement: function(error, element) {
+        element.before(error);
+        offset = element.offset();
+        error.css('left', offset.left);
+        error.css('top', offset.top - element.outerHeight());
+    }
+   });
+ });
+ $(function() {
+	$("button").button();
+});
+ </script>
+ {% endblock javascript %}
+{% block content %}
+<form id="signup" name="signup" method="post" action="/manager/profile/add/">
+{% csrf_token %}
+{% if invite_key %}
+<input type="hidden" id="invite_key" name="invite_key" value="{{invite_key}}">
+{% endif %}
+<h1>Sign-up form</h1>
+{% if system_message %}<p class="error"><strong>{{ system_message }}</strong></p>{% endif %}
+<p>Password must be at least 6 characters.</p>
+<table id="create_profile_table">
+{{ form.as_table }}
+</table>
+<p>
+	<input type="checkbox" class="checkbox" id="agree" name="agree" value='true'/> 
+	<label for="agree">Please agree to our <a target="inithub_static" href="/static/terms.html">Terms of Service</a></label>	
+</p>
+<button type="submit">Sign-up</button>
+</form>
+{% endblock content %}

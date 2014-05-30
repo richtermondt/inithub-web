@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block css %}
+<link rel="stylesheet" href="/static/css/smoothness/jquery-ui-1.8.23.custom.css" type="text/css">
+{% endblock css %}
+{% block javascript %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="/static/scripts/jquery.validate.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+
+ <script>
+ $(function(){
+   $("#profile").validate({
+   rules: {
+   	email: {
+   		required:true,
+   		email:true
+   	},
+   	first_name: 'required',
+   	last_name: 'required',
+   	
+   }
+   });
+ });
+ 
+	$(function() {
+		$("button").button();
+	});
+ 
+ </script>
+  					
+{% endblock javascript %}
+
+{% block side_nav %}
+<ul>
+	<li><a href="/manager/profile/service/">Services</a></li>
+	<li><a href="/manager/profile/interest/">Interests</a></li>
+	<li><a href="/manager/profile/manager/">Update Profile</a></li>
+	<li><a href="/manager/profile/password/change/">Update Password</a></li>
+	<li><a href="/manager/profile/subscription/">Subscriptions</a></li>
+</ul>
+{% endblock side_nav %}
+
+{% block content %}
+<h1>Profile Manager</h1>
+<p>Fields in bold are required.</p>
+{% if system_message %}<p><strong>{{ system_message }}</strong></p>{% endif %}
+<form id="profile" name="profile" method="post" action="/manager/profile/manager/">
+{% csrf_token %}
+<table id="profile_edit_table">
+
+
+{% for field in form %}
+<tr><td>
+  <label for="{{ field.auto_id }}">
+    {% if field.field.required %}<span class="required">{{ field.label }}</span>
+    {% else %}<span>{{ field.label }}</span>{% endif %}
+  </label>
+  </td>
+  <td>
+  {{ field }}
+  {{ field.errors }}
+  </td>
+  </tr>
+{% endfor %}
+<tr>
+	<td colspan="2"><button type="submit">Update</button></td>
+</tr>
+</table>
+</form>
+
+{% endblock content %}

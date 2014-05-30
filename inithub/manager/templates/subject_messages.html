@@ -1,0 +1,59 @@
+{% extends "collaboration.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/css/smoothness/jquery-ui-1.8.23.custom.css" type="text/css">
+{% endblock css %}
+{% block javascript %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+<script>
+$(function() {
+  $( "#dialog-form" ).dialog({
+  	autoOpen: false,
+  	height: 325,
+  	width: 325,
+  	modal: true  
+  });
+  $( "#add_comment" )
+  	.button()
+  	.click(function() {
+  		$( "#dialog-form" ).dialog( "open" );
+  	});
+  $( "#add_comment_bottom" )
+  	.button()
+  	.click(function() {
+  		$( "#dialog-form" ).dialog( "open" );
+  	});
+  	
+ });
+</script>
+{% endblock javascript %}
+
+
+{% block content %}
+<h1>{{ subject.short_desc }}</h1>
+<p>{{ subject.long_desc }}</p>
+{% if system_message %}<p class="error"><strong>{{ system_message }}</strong></p>{% endif %}
+<div id="dialog-form" title="Add comment">
+<form id="subject_add" method="post" action="/manager/collaboration/subject/messages/">
+{% csrf_token %}
+<input type="hidden" id="subject_id" name="subject_id" value="{{ subject.id }}">
+{{ form.as_p }}
+<button type="submit">Add</button>
+</form>
+</div>
+{% if messages %}
+	<button id="add_comment">Add comment</button>
+	<br/>
+	{% for message in messages %}
+		<br/>
+		<table class="box">
+		<tr><td>{{ message.create_date }}<td>{{ message.profile__first_name }} {{ message.profile__last_name }}<br></td></tr>
+		<tr><td colspan="2">{{ message.comment }}</td></tr>
+		</table>
+	{% endfor %}
+{% endif %}
+<br/>
+<button id="add_comment_bottom">Add comment</button>
+
+{% endblock content %}

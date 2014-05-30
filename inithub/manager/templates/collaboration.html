@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block side_nav %}
+<ul>
+	<li><a href="/manager/collaboration/subject/list/">Subjects</a></li>
+	<li><a href="/manager/collaboration/subject/add/">Create new Subject </a></li>
+	<li><a href="/manager/inbox/">Inbox</a></li>
+	<li><a href="/manager/collaboration/invite/">Invite</a></li>
+</ul>
+{% endblock side_nav %}
+
+{% block content %}
+<h1>Collaboration</h1>
+{% if system_message %}<p class="error"><strong>{{ system_message }}</strong></p>{% endif %}
+{% endblock content %}

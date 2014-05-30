@@ -1,0 +1,45 @@
+{% extends "initiatives.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/css/smoothness/jquery-ui-1.8.23.custom.css" type="text/css">
+{% endblock css %}
+{% block javascript %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+<script src="/static/scripts/jquery.validate.min.js"></script>
+<script src="/static/scripts/nicEdit.js"></script>
+ <script>
+ bkLib.onDomLoaded(function() { 
+ 	nicEditors.allTextAreas({buttonList : ['bold','italic','underline','left','center','right','justify','ol','ul','subscript','superscript','strikethrough','removeformat','indent','outdent','hr','forecolor','bgcolor','link','unlink','fontSize','fontFamily','fontFormat']})
+  });
+  $(function() {
+    $("button").button();
+   })
+  $(function() {
+  	$("#initiative_add").validate({
+   		rules: {
+   			short_desc: 'required',
+   			long_desc: 'required'   	
+   		}
+  	})
+  });
+ </script>
+  					
+{% endblock javascript %}
+
+{% block content %}
+<h1>Add Initiative</h1>
+{% if system_message %}
+	<p><strong>{{ system_message }}</strong></p>
+	{% if return_code == '0' %}
+		<a href="/manager/initiative/service/{{ uuid }}/">Add Service</a> | <a href="/manager/initiative/milestones/{{ uuid }}/">Add Milestone</a>
+	{% endif %}
+{% else %}
+	<form id="initiative_add" name="initiative_add" method="post" action="/manager/initiative/add/">
+	{% csrf_token %}
+
+	{{ form.as_p }}
+	<button type="submit">Submit</button>
+	</form>
+{% endif %}
+{% endblock content %}

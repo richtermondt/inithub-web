@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="stylized" class="myform">
+<form id="form" name="form" method="post" action="/manager/signin/authenticate/">
+{% csrf_token %}
+<h1>Create a Initiative</h1>
+<p>Congragulations! You are ready to create a Initiative.</p>
+
+<div style="height: 1px;" class="spacer"></div>
+</form>
+</div>
+{% endblock content %}

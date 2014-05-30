@@ -1,0 +1,12 @@
+Hello,
+{{ first_name }} {{ last_name }} has invited you to join InitHub.
+
+{{ message }}
+
+You can create your account by navigating to the following URL:
+
+http://www.inithub.com/innohub/profile/create/{{ uid }}/
+
+Thank you!
+
+InitHub Support team.

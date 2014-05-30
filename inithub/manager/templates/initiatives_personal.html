@@ -1,0 +1,18 @@
+{% extends "initiatives.html" %}
+{% block content %}
+<h1>My Initiatives</h1>
+{% if initiative_list %}
+<table id="initiative_list" class="data_grid_1">
+  <tr>
+    <th>Initiative</th>
+    <th>Action</th>
+  </tr>
+{% for initiative in initiative_list %}
+	
+	<tr><td>{{ initiative.short_desc }}<td><a href="/manager/initiative/edit/{{initiative.uuid}}/">Update</a> | <a href="/manager/collaboration/subject/add/{{initiative.uuid}}/">Create Subject</a></tr>
+{% endfor %}
+</table>
+{% else %}
+<p>You have not created an Initiative.</p>
+{% endif %}
+{% endblock content %}

@@ -1,0 +1,90 @@
+{% extends "initiatives.html" %}
+
+{% block content %}
+<form id="form" name="form" method="post" action="#">
+{% csrf_token %}
+<h1>Initiative Milestones</h1>
+{% if system_message %}
+	<p><strong>{{ system_message }}</strong></p>
+{% else %}
+	<p>Select the services you would like to extend to the InitHub community</p>
+	<div>
+		<ul id="sortable">
+			<li id="1">Item 1</li>
+			<li id="2">Item 2</li>
+			<li id="3">Item 3</li>
+			<li id="4">Item 4</li>
+			<li id="5">Item 5</li>
+		</ul>
+	</div>
+
+	<div>
+		<button id="btn_top">Top</button>
+		<button id="btn_bottom">Bottom</button>
+		<button id="btn_QClick">Queue List</button>
+		<input name="hfReorderResults" type="text" id="hfReorderResults" />
+	</div>
+
+	</form>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+	<script type="text/javascript">
+$(function() {
+    var selectedItem = null;
+    var isSorting = false;
+    
+    $("ul#sortable")
+    .sortable({
+        start: function() { isSorting = true; }
+        
+        , stop: function(i) {
+            
+            SaveOrder();
+            placeholder: 'ui-state-highlight'
+            /*$.ajax({
+                type: "GET",
+                url: "updatedb.php",
+                data: $("#sortable").sortable("serialize")});*/
+        }
+    })
+       
+
+    .find("li").click(function(e) {
+        if (!isSorting) {
+            selectedItem = $(e.target).addClass("selected");
+            selectedItem.siblings().removeClass("selected");
+        }
+        else {
+            isSorting = false;
+        }
+    });
+
+    $("button#btn_top").click(function() {
+        if (selectedItem != null) {
+            selectedItem.prependTo(selectedItem.parent());
+            SaveOrder();
+        }
+    });
+
+    $("button#btn_QClick").click(function() {
+            SaveOrder();
+    });
+    
+    $("button#btn_bottom").click(function() {
+        if (selectedItem != null) {
+            selectedItem.appendTo(selectedItem.parent());
+            SaveOrder();
+        }
+    });
+});
+
+
+function SaveOrder() {
+    var results = $("#sortable").sortable('toArray');
+    ///alert ('results: '+results);
+        // Place the array of IDs into the hidden field for later retrieval by the page
+        $("[id*=hfReorderResults]").val(results);
+    }
+	</script>
+{% endif %}
+{% endblock content %}

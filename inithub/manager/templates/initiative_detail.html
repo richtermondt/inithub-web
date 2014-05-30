@@ -1,0 +1,107 @@
+{% extends "initiatives.html" %}
+{% block css %}
+<link rel="stylesheet" href="/static/css/jquery.rating.css" />		
+{% endblock css %}
+
+{% block javascript %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="/static/scripts/jquery.MetaData.js"></script>
+<script src="/static/scripts/jquery.rating.js"></script>			
+{% endblock javascript %}
+
+{% block side_nav %}
+<ul>
+	<li><a href="/manager/initiative/service/offer/{{ initiative.uuid }}/">Offer services</a></li>
+	{% if can_rate %}
+		<li><a href="/manager/initiative/rate/{{ initiative.uuid }}/">Rate</a></li>
+	{% else %}
+		<li><a href="/manager/initiative/edit/{{initiative.uuid}}/">Edit</a></li>
+	{% endif %}
+</ul>
+{% endblock side_nav %}
+
+{% block content %}
+
+<h1>Initiative Detail</h1>
+<h2>Summary</h2>
+<hr/>
+<p>{{ initiative.short_desc }}</p>
+<strong>Published:</strong> {{ initiative.publish_date|date:"N j, Y" }}
+<h2>Detailed Description</h2>
+<hr/>
+<p>
+{% autoescape off %}
+{{ initiative.long_desc }}
+{% endautoescape %}
+</p>
+<h2>Sponsor</h2>
+<p>
+<div id="sponsor">
+<a href="/manager/profile/view/{{ sponsor_profile.confirm_key }}/">{{ sponsor_profile.first_name }} {{ sponsor_profile.last_name }}</a>
+</div>
+{% if sponsor_avg_rating %}
+<form name="initiative_rating" id="initiative_rating">
+ 	<input class="star {split:2}" type="radio" name="star" value="0.5" title="0.5" disabled="disabled" {% if sponsor_avg_rating = 0.5 %}checked="checked"{% endif %}/>
+   	<input class="star {split:2}" type="radio" name="star" value="1" title="1" disabled="disabled" {% if sponsor_avg_rating = 1.0 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="1.5" title="1.5" disabled="disabled" {% if sponsor_avg_rating = 1.2 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="2" title="2" disabled="disabled" {% if sponsor_avg_rating = 2.0 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="2.5" title="2.5" disabled="disabled" {% if sponsor_avg_rating = 2.5 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="3" title="3" disabled="disabled" {% if sponsor_avg_rating = 3.0 %}checked="checked"{% endif %}/>
+	<input class="star {split:2}" type="radio" name="star" value="3.5" title="3.5" disabled="disabled" {% if sponsor_avg_rating = 3.5 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="4" title="4" disabled="disabled" {% if sponsor_avg_rating = 4.0 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="4.5" title="4.5" disabled="disabled" {% if sponsor_avg_rating = 4.5 %}checked="checked"{% endif %}/>
+	<input class="star {split:2}" type="radio" name="star" value="5" title="5" disabled="disabled" {% if sponsor_avg_rating = 5.0 %}checked="checked"{% endif %}/>
+</form>
+{% endif %}
+</p>
+<br>
+<h2>Initiative Rating</h2>
+<hr/>
+<p>
+{% if rating %}
+ 	<form name="initiative_rating" id="initiative_rating">
+ 	<input class="star {split:2}" type="radio" name="star" value="0.5" title="0.5" disabled="disabled" {% if rating = 0.5 %}checked="checked"{% endif %}/>
+   	<input class="star {split:2}" type="radio" name="star" value="1" title="1" disabled="disabled" {% if rating = 1.0 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="1.5" title="1.5" disabled="disabled" {% if rating = 1.2 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="2" title="2" disabled="disabled" {% if rating = 2.0 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="2.5" title="2.5" disabled="disabled" {% if rating = 2.5 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="3" title="3" disabled="disabled" {% if rating = 3.0 %}checked="checked"{% endif %}/>
+	<input class="star {split:2}" type="radio" name="star" value="3.5" title="3.5" disabled="disabled" {% if rating = 3.5 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="4" title="4" disabled="disabled" {% if rating = 4.0 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="4.5" title="4.5" disabled="disabled" {% if rating = 4.5 %}checked="checked"{% endif %}/>
+	<input class="star {split:2}" type="radio" name="star" value="5" title="5" disabled="disabled" {% if rating = 5.0 %}checked="checked"{% endif %}/>
+	</form> (<a href="/manager/initiative/ratings/{{ initiative.uuid }}/">{{ num_ratings }} ratings</a>)
+	<br>
+{% else %}
+None
+{% endif %}
+</p>
+<h2>Contibutors</h2>
+<hr/>
+<table cellpadding="5" cellspacing="0" border="0">
+{% for offer in offer_list %}
+	<tr>
+		<td>{{ offer.service__short_desc }}</td>
+		<td><a href="/manager/profile/view/{{ offer.profile__confirm_key }}/">{{ offer.profile__first_name }} {{ offer.profile__last_name }}</a></td>		
+	</tr>
+{% endfor %}
+</table>
+<h2>Milestones</h2>
+<hr/>
+<ul>
+{% for milestone in milestones_selected %}
+	<li>{{ milestone.short_desc }} {% if  milestone.milestones__is_completed == True %} (Completed) {% endif %}</li>
+	
+	
+
+{% endfor %}
+</ul>
+<h2>Services Needed</h2>
+<hr/>
+<ul>
+{% for service in service_selected %}
+	<li>{{ service.short_desc }}</li>
+{% endfor %}
+</ul>
+
+{% endblock content %}

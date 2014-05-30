@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block side_nav %}
+<ul>
+	<li><a href="/manager/news/service/requested/">Services needed</a></li>
+	<li><a href="/manager/news/service/contributed/">Services contributed</a></li>
+	<li><a href="/manager/news/milestone/targets/">Milestones set</a></li>
+	<li><a href="/manager/news/milestone/completed/">Milestones achieved</a></li>
+	<li><a href="/manager/news/initiative/started/">Initiatives launched</a></li>
+</ul>
+{% endblock side_nav %}
+
+{% block content %}
+<h1>Newsfeed</h1>
+{% if init_service %}
+	<h2>Services needed</h2>
+	
+	{% for service in init_service %}		
+		{% ifchanged service.initiative_id %}
+			<div id="basic_box"><strong><a href="/manager/initiative/detail/{{ service.initiative__uuid }}/">{{ service.initiative__short_desc }}</a></strong></div>	
+		{% endifchanged %}			
+		<div id="basic_box_item">{{ service.service__short_desc }} - {{ service.create_date }}</div>	
+	{% endfor %}
+	{% if init_service.number %}
+		<br/>
+		<div class="pagination">
+		    <span class="step-links">
+		        {% if init_service.has_previous %}
+		            <a href="?page={{ init_service.previous_page_number }}">previous</a>
+		        {% endif %}
+		
+		        <span class="current">
+		            Page {{ init_service.number }} of {{ init_service.paginator.num_pages }}.
+		        </span>
+		
+		        {% if init_service.has_next %}
+		            <a href="?page={{ init_service.next_page_number }}">next</a>
+		        {% endif %}
+		    </span>
+		</div>
+	{% endif %}
+{% endif %}
+{% if init_service_offer %}
+	<h2>Services contributed</h2>
+	
+	{% for service in init_service_offer %}
+		{% ifchanged service.initiative__short_desc %}
+			<div id="basic_box"><strong><a href="/manager/initiative/detail/{{ service.initiative__uuid }}/">{{ service.initiative__short_desc }}</a></strong></div>
+		{% endifchanged %}
+	<div id="basic_box_item">{{ service.service__short_desc }} - {{service.profile__first_name}} {{service.profile__last_name}} : {{service.create_date}}</div>
+	{% endfor %}
+	{% if init_service_offer.number %}
+		<br/>
+		<div class="pagination">
+		    <span class="step-links">
+		        {% if init_service_offer.has_previous %}
+		            <a href="?page={{ init_service_offer.previous_page_number }}">previous</a>
+		        {% endif %}
+		
+		        <span class="current">
+		            Page {{ init_service_offer.number }} of {{ init_service_offer.paginator.num_pages }}.
+		        </span>
+		
+		        {% if init_service_offer.has_next %}
+		            <a href="?page={{ init_service_offer.next_page_number }}">next</a>
+		        {% endif %}
+		    </span>
+		</div>
+	{% endif %}
+{% endif %}
+{% if milestone_targets %}
+	<h2>Milestones set</h2>
+	{% for milestone in milestone_targets %}
+		{% ifchanged milestone.initiative__short_desc %}
+			<div id="basic_box"><strong><a href="/manager/initiative/detail/{{ milestone.initiative__uuid }}/">{{ milestone.initiative__short_desc }}</a></strong></div>
+		{% endifchanged %}
+	<div id="basic_box_item">{{ milestone.milestone__short_desc }} - {{milestone.target_date}}</div>
+	{% endfor %}
+	{% if milestone_targets.number %}
+		<br/>
+		<div class="pagination">
+		    <span class="step-links">
+		        {% if milestone_targets.has_previous %}
+		            <a href="?page={{ milestone_targets.previous_page_number }}">previous</a>
+		        {% endif %}
+		
+		        <span class="current">
+		            Page {{ milestone_targets.number }} of {{ milestone_targets.paginator.num_pages }}.
+		        </span>
+		
+		        {% if milestone_targets.has_next %}
+		            <a href="?page={{ milestone_targets.next_page_number }}">next</a>
+		        {% endif %}
+		    </span>
+		</div>
+	{% endif %}
+{% endif %}
+{% if milestone_complete %}
+	<h2>Milestones achieved</h2>
+	
+	{% for milestone in milestone_complete %}
+		{% ifchanged milestone.initiative__short_desc %}
+			<div id="basic_box"><strong><a href="/manager/initiative/detail/{{ milestone.initiative__uuid }}/">{{ milestone.initiative__short_desc }}</a></strong></div>
+		{% endifchanged %}
+	<div id="basic_box_item">{{ milestone.milestone__short_desc }} - {{milestone.complete_date}}</div>
+	{% endfor %}
+	{% if milestone_complete.number %}
+		<br/>
+		<div class="pagination">
+		    <span class="step-links">
+		        {% if milestone_complete.has_previous %}
+		            <a href="?page={{ milestone_complete.previous_page_number }}">previous</a>
+		        {% endif %}
+		
+		        <span class="current">
+		            Page {{ milestone_complete.number }} of {{ milestone_complete.paginator.num_pages }}.
+		        </span>
+		
+		        {% if milestone_complete.has_next %}
+		            <a href="?page={{ milestone_complete.next_page_number }}">next</a>
+		        {% endif %}
+		    </span>
+		</div>
+	{% endif %}
+{% endif %}
+{% if initiatives %}
+	<h2>Initiatives launched</h2>
+	
+	{% for initiative in initiatives %}
+		{% ifchanged initiative.uuid %}
+			<div id="basic_box"><strong><a href="/manager/initiative/detail/{{ initiative.uuid }}/">{{ initiative.short_desc }}</a></strong></div>
+		{% endifchanged %}
+	<div id="basic_box_item">{{ initiative.profile__first_name }} {{ initiative.profile__last_name }} - {{initiative.create_date}}</div>
+	{% endfor %}
+	
+	{% if initiatives.number %}
+		<br/>
+		<div class="pagination">
+		    <span class="step-links">
+		        {% if initiatives.has_previous %}
+		            <a href="?page={{ initiatives.previous_page_number }}">previous</a>
+		        {% endif %}
+		
+		        <span class="current">
+		            Page {{ initiatives.number }} of {{ initiatives.paginator.num_pages }}.
+		        </span>
+		
+		        {% if initiatives.has_next %}
+		            <a href="?page={{ initiatives.next_page_number }}">next</a>
+		        {% endif %}
+		    </span>
+		</div>
+	{% endif %}
+{% endif %}
+{% endblock content %}

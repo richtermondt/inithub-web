@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block css %}
+<link rel="stylesheet" href="/static/css/jquery.rating.css" />				
+{% endblock css %}
+{% block javascript %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="/static/scripts/jquery.MetaData.js"></script>
+<script src="/static/scripts/jquery.rating.js"></script>				
+{% endblock javascript %}
+
+
+{% block content %}
+<script type="text/javascript">
+function validateForm()
+{
+	//var r = confirm("You are about to " + document.rating.star.value + " offer, click ok to continue...");
+	var rad_val = 0;
+	for (var i=0; i < document.rating.star.length; i++)
+	{
+		if (document.rating.star[i].checked)
+		{
+			rad_val = document.rating.star[i].value;
+		}
+   }
+
+	if(rad_val > 0)
+	{
+		document.rating.submit();
+	}
+	else
+	{
+		alert("You must provide a rating!");
+		return false;
+	}	
+}
+</script>
+
+
+<h1>Rate Profile</h1>
+
+{% if system_message %}<p class="error"><strong>{{ system_message }}</strong></p>{% endif %}
+<p>Please be mindful to rate this person based on InitHub Core Principles. Your name will not be displayed to the community.</p>
+<form id="rating" name="rating" method="post" action="/manager/profile/rate/">
+{% csrf_token %}
+<input type="hidden" name="uuid" value="{{ uuid }}">
+{% if profile_rating %}<input type="hidden" name="profile_rating_id" value="{{ profile_rating.id }}">{% endif %}
+	<h2>Stars</h2>
+    <input class="star {split:2}" type="radio" name="star" value="0.5" title="0.5" {% if profile_rating.rating = 0.5 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="1.0" title="1" {% if profile_rating.rating = 1.0 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="1.5" title="1.5" {% if profile_rating.rating = 1.5 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="2.0" title="2" {% if profile_rating.rating = 2.0 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="2.5" title="2.5" {% if profile_rating.rating = 2.5 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="3.0" title="3" {% if profile_rating.rating = 3.0 %}checked="checked"{% endif %}/>
+	<input class="star {split:2}" type="radio" name="star" value="3.5" title="3.5" {% if profile_rating.rating = 3.5 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="4.0" title="4" {% if profile_rating.rating = 4.0 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="4.5" title="4.5" {% if profile_rating.rating = 4.5 %}checked="checked"{% endif %}/>
+	<input class="star {split:2}" type="radio" name="star" value="5.0" title="5" {% if profile_rating.rating = 5.0 %}checked="checked"{% endif %}/>
+	<br/>
+	<h2>Comments</h2>
+	<textarea name="comments" rows="5" cols="30">{{ profile_rating.comments }}</textarea>
+	<br/>
+	<button type="submit" onclick="return validateForm()">Submit</button>
+</form>
+
+<script type="text/javascript">	
+$(function(){ // wait for document to load
+ $('#rating :radio.star').rating();
+});
+</script>   
+{% endblock content %}

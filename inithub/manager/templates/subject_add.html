@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block side_nav %}
+<ul>
+	<li><a href="/manager/collaboration/subject/list/">Subjects</a></li>
+	<li><a href="/manager/collaboration/subject/add/">Create new Subject </a></li>
+	<li><a href="/manager/inbox/">Inbox</a></li>
+</ul>
+{% endblock side_nav %}
+
+{% block content %}
+<h1>Create New Subject</h1>
+{% if system_message %}<p class="error"><strong>{{ system_message }}</strong></p>{% endif %}
+{% if initiatives or initiative_uuid %}
+<form id="subject_add" method="post" action="/manager/collaboration/subject/add/">
+{% csrf_token %}
+{% if initiative_uuid == None %}
+	Initiative: <select name="initiative_uuid">
+	<option value="" selected="selected">---------</option>
+	{% for initiative in initiatives %}
+	<option label="{{ initiative.short_desc}}" value="{{ initiative.uuid}}">{{ initiative.short_desc}}</option>
+	{% endfor %}
+	</select><br>
+{% else %}
+ 	<input type="hidden" id="initiative_uuid" name="initiative_uuid" value="{{ initiative_uuid }}">
+{% endif %}
+{{ form.as_p }}
+<button type="submit">Create</button>
+</form>
+{% else %}
+<p>You must have created an Initiative that can be related to a new subject.</p>
+{% endif %}
+{% endblock content %}

@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html lang=en>
+<head>
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+<meta charset=utf-8>
+<title>Collaborative Innovation Platform - InitHub</title>
+
+<meta name="description" content="Crowdsourcing Innovation Network - InitHub" />
+<meta name="keywords" content="crowdsourcing,innovation,collaboration,network,mastermind" />
+
+<meta name="ROBOTS" content="INDEX, FOLLOW" />
+
+<link rel="stylesheet" href="/static/css/960.css" type="text/css">
+<link rel="stylesheet" href="/static/css/base_style.css" type="text/css">
+<link rel="stylesheet" href="/static/css/smoothness/jquery-ui-1.8.23.custom.css" type="text/css">	
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="/static/scripts/jquery.validate.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+
+<script>
+$(document).ready(function(){
+   $("#invitation").validate({
+   rules: {
+   	email: {
+   		required:true,
+   		email:true
+   	},
+   	
+   }
+   });
+ });
+ $(function() {
+		$("button").button();
+	});
+ </script>
+ 
+</head>
+
+<body>				
+
+<div id="container" class="container_12">
+	<div id="header" class="grid_12">
+		<h1>
+			InitHub
+		</h1>
+	</div>
+	<div id="navigation" class="grid_12">
+		
+		<ul>
+			<li><a href="/">Home</a></li>
+			<li><a href="http://blog.inithub.com">Blog</a></li>
+			<li><a href="/manager/signin/">Sign-in</a></li>						
+		</ul>
+		<div class="social_media">
+			<a href="http://www.facebook.com/pages/InitHub/533556133325451"><img src="/static/images/facebook.png" width="24" height="24" alt="InitHub on Facebook" title="InitHub on Facebook"></a>
+			<a href="http://www.linkedin.com/company/solutiosoft-llc"><img src="/static/images/linkedin.png" width="24" height="24" alt="Solutiosoft on Linkedin" title="Solutiosoft on Linkedin"></a>
+			<a href="https://twitter.com/InitHub"><img src="/static/images/twitter.png" width="24" height="24" alt="InitHub on Twitter" title="InitHub on Twitter"></a>
+		</div>
+
+	</div>
+
+	<div id="content" class="grid_7">
+		
+<h1>Crowdsourcing Innovations to Life</h1>
+<p>InitHub is a crowdsourcing innovation network designed to facilitate forming key relationships, with the common goal of advancing an idea or innovation. Our goal is to create a trusted, self governing community dedicated to bringing innovations to life.</p>
+<h2>Key Benefits</h2>
+<ul>
+<li>Create, refine and publish Initiatives to our private community</li>
+<li>Define key milestones, set target and completed dates for each milestone</li>
+<li>Request the services you need to advance your initiative</li>
+<li>Connect with users and build a mastermind team to help bring your idea to life</li>
+<li>Browse and search for interesting Initiatives</li>
+<li>Offer your services to advance an Initiative</li>
+<li>Rate and comment on Initiatives</li>
+<li>Rate registered users that you collaborate with</li>
+<li>Prepare for a crowdfunding campaign by leveraging the InitHub tools and community</li>
+<li>Collaborate from your Android powered device</li>
+</ul>
+
+	</div>
+	<div id="aside" class="grid_5">
+
+<div class="offer_1">
+<h3>Invitation Request</h3>
+<p>InitHub is now accepting requests for invitations to our exciting new innovation network. Access to the system is free, and during our initial Beta period you can <strong>launch your initiative for no charge!</strong> No obligations and no credit card required. Submit your email below to request an invitation.</p>
+<form id="invitation" name="invitation" method="post" action="/manager/invitation/">
+{% csrf_token %}
+{% if system_message %}<p class="error"><strong>{{ system_message }}</strong></p>{% endif %}
+{{ form.as_p }}<button type="submit">Submit</button>
+</form>
+</div>
+
+
+</div>
+	<div id="footer" class="grid_12">
+<div id="terms">
+<a target="inithub_static" href="/static/terms.html">Terms</a> | <a target="inithub_static" href="/static/privacy.html">Privacy</a> | <a target="inithub_static" href="/static/affiliates.html">Affiliates</a>
+</div>	
+<div id="copyright">
+	Copyright &copy; 2014 <a target="_blank" href="http://www.solutiosoft.com">Solutiosoft, LLC</a>
+</div>
+</div>
+</div>
+</body></html>

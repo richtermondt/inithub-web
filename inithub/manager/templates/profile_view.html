@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block css %}
+<link rel="stylesheet" href="/static/css/jquery.rating.css" />		
+{% endblock css %}
+
+{% block javascript %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="/static/scripts/jquery.MetaData.js"></script>
+<script src="/static/scripts/jquery.rating.js"></script>			
+{% endblock javascript %}
+{% block side_nav %}
+{% if haveWorkedTogether %}
+<p>You have worked together. You can <a href="/manager/profile/rate/{{ profile.confirm_key }}/">Rate</a> this person.</p>
+<ul>
+	<li><a href="/manager/profile/rate/{{ profile.confirm_key }}/">Rate</a></li>
+
+</ul>
+{% endif %}
+{% endblock side_nav %}
+
+{% block content %}
+<h1>View Profile</h1>
+<h2>{{ profile.first_name }} {{ profile.last_name }}</h2>
+
+<h2>Rating</h2>
+{% if rating %}
+<p>
+ 	<input class="star {split:2}" type="radio" name="star" value="0.5" title="0.5" disabled="disabled" {% if rating = 0.5 %}checked="checked"{% endif %}/>
+   	<input class="star {split:2}" type="radio" name="star" value="1" title="1" disabled="disabled" {% if rating = 1.0 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="1.5" title="1.5" disabled="disabled" {% if rating = 1.2 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="2" title="2" disabled="disabled" {% if rating = 2.0 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="2.5" title="2.5" disabled="disabled" {% if rating = 2.5 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="3" title="3" disabled="disabled" {% if rating = 3.0 %}checked="checked"{% endif %}/>
+	<input class="star {split:2}" type="radio" name="star" value="3.5" title="3.5" disabled="disabled" {% if rating = 3.5 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="4" title="4" disabled="disabled" {% if rating = 4.0 %}checked="checked"{% endif %}/>
+    <input class="star {split:2}" type="radio" name="star" value="4.5" title="4.5" disabled="disabled" {% if rating = 4.5 %}checked="checked"{% endif %}/>
+	<input class="star {split:2}" type="radio" name="star" value="5" title="5" disabled="disabled" {% if rating = 5.0 %}checked="checked"{% endif %}/>
+	(<a href="/manager/profile/ratings/{{ profile.confirm_key }}/">{{ num_ratings }} ratings</a>)
+</p>
+{% else %}
+<p>None</p>
+{% endif %}
+{% if service_selected %}
+<h2>Services Offered</h2>
+<ul>
+{% for service in service_selected %}
+	<li>{{ service.service__short_desc }}</li>
+{% endfor %}
+</ul>
+{% endif %}
+
+{% if initiatives %}
+<h2>Initiatives Created</h2>
+<ul>
+{% for initiative in initiatives %}
+	<li>{{ initiative.short_desc }}</li>
+{% endfor %}
+</ul>
+{% endif %}
+
+{% if services_contrib %}
+<h2>Services Contributed</h2>
+
+{% for initiative in services_contrib %}
+	{% ifchanged initiative.initiative__short_desc %}
+		<div id="basic_box">{{initiative.initiative__short_desc}}</div>
+	{% endifchanged %}
+	<div id="basic_box_item">{{ initiative.service__short_desc }}</div>
+{% endfor %}
+
+{% endif %}
+
+{% endblock content %}

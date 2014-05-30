@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+
+
+{% block top_nav %}
+	{% if top_menu == 'landing' %}
+	<ul>
+		<li><a href="/">Home</a></li>
+		<li><a href="http://blog.inithub.com">Blog</a></li>
+		<li><a href="/manager/signin/">Sign-in</a></li>						
+	</ul>
+	<div class="social_media">
+		<a href="http://www.facebook.com/pages/InitHub/533556133325451"><img src="/static/images/facebook.png" width="24" height="24" alt="InitHub on Facebook" title="InitHub on Facebook"></a>
+		<a href="https://twitter.com/InitHub"><img src="/static/images/twitter.png" width="24" height="24" alt="InitHub on Twitter" title="InitHub on Twitter"></a>
+	</div>
+	{% else %}
+		<ul>
+			<li><a href="/manager/profile/manager/">Profile</a></li>
+			<li><a href="/manager/news/">News</a></li>
+			<li><a href="/manager/collaboration/">Collaboration</a></li>
+			<li><a href="/manager/initiatives/">Initiatives</a></li>
+			<li><a href="/support/faq/">Support</a></li>
+			<li><a href="/manager/logout/">Logout</a></li>
+		</ul>
+	{% endif %}
+{% endblock top_nav %}
+
+
+
+{% block content %}
+<h2 style="text-align: center;">System Message</h2>
+<div style="text-align: center;">
+
+
+{% if system_message %}<p class="error"><strong>{{ system_message }}</strong></p>{% endif %}
+</div>
+{% endblock content %}

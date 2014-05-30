@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block css %}
+<link rel="stylesheet" href="/static/css/smoothness/jquery-ui-1.8.23.custom.css" type="text/css">
+{% endblock css %}
+{% block javascript %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+<script>
+	$(function() {
+	{% for milestone in milestones %}
+		$( "#target_date{{milestone.id}}" ).datepicker();
+		$( "#complete_date{{milestone.id}}" ).datepicker();
+	{% endfor%}
+	$("button").button();
+	});
+</script>
+{% endblock javascript %}
+{% block side_nav %}
+	<li><a href="/manager/initiative/edit/{{uuid}}/">Initiative</a></li>
+	<li><a href="/manager/initiative/contributors/{{ uuid }}/">Contributors</a></li>
+	<li><a href="/manager/initiative/milestones/{{ uuid }}/">Milestones</a></li>
+	<li><a href="/manager/initiative/contributors/offer/{{uuid}}/">Service Offers</a></li>
+	<li><a href="/manager/initiative/service/{{ uuid }}/">Service Requests</a></li>
+{% endblock side_nav %}
+
+{% block content %}
+
+<h1>Milestone Target Dates</h1>
+<p>Update one Milestone row at a time.</p> 
+{% if system_message %}<p><strong>{{ system_message }}</strong></p>{% endif %}
+
+<table id="milestone_dates_grid" class="data_grid_1">
+<tr><th>Milestone</th><th>Target Date</th><th>Completed Date</th><th>Action</th></tr>
+{% for milestone in milestones %}
+<form id="milestone_details_{{ milestone.id }}" name="milestone_details_{{ milestone.id }}" method="post" action="/manager/initiative/milestone/date/">
+{% csrf_token %}
+<input type="hidden" name="milestone_id" value="{{ milestone.id }}">
+<input type="hidden" name="uuid" value="{{ uuid }}">
+<tr>
+	<td>{{ milestone.milestone__short_desc }}</td>
+	<td><input type="text" id="target_date{{milestone.id}}" name="target_date"{% if milestone.target_date != None %} value="{{ milestone.target_date|date:"SHORT_DATE_FORMAT" }}"{% endif %}></td>
+	<td><input type="text" id="complete_date{{milestone.id}}" name="complete_date"{% if milestone.complete_date != None %} value="{{ milestone.complete_date|date:"SHORT_DATE_FORMAT" }}"{% endif %}></td>
+	<td><button type="update">Update</button></td>
+</tr>
+</form>
+{% endfor%}
+
+</table>
+{% endblock content %}

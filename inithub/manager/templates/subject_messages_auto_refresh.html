@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/css/smoothness/jquery-ui-1.8.23.custom.css" type="text/css">
+{% endblock css %}
+{% block javascript %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+<script>
+$(function() {
+  $( "#dialog-form" ).dialog({
+  	autoOpen: false,
+  	height: 325,
+  	width: 325,
+  	modal: true  
+  });
+  $( "#add_comment" )
+  	.button()
+  	.click(function() {
+  		$( "#dialog-form" ).dialog( "open" );
+  	});
+  $( "#add_comment_bottom" )
+  	.button()
+  	.click(function() {
+  		$( "#dialog-form" ).dialog( "open" );
+  	});
+  	
+ });
+</script>
+
+ <script>
+	$(document).ready(function() {
+		// We use ``.ajax`` here due to the overrides.
+		var last_update =  $("#last_update").val();
+		var interval = 5000
+		var refresh = function() {
+		$.ajax({
+			// Substitute in your API endpoint here.
+			url: '/manager/api/web/message/',
+			cache: false,
+			contentType: 'application/json',
+			data: {subject_id: {{ subject.id }}, last_update: last_update},
+			// The ``X-CSRFToken`` evidently can't be set in the
+			// ``headers`` option, so force it here.
+			// This method requires jQuery 1.5+.
+			/* not needed on get
+			beforeSend: function(jqXHR, settings) {
+				// Pull the token out of the DOM.
+				var csrftoken = getCookie('csrftoken');
+				jqXHR.setRequestHeader("X-CSRFToken", csrftoken);
+			},
+			*/
+			success: function(data, textStatus, jqXHR) {
+				$("#new_messages").prepend("and now there");
+				// Your processing of the data here.
+				console.log(data.objects);
+				//var json_parsed = $.parseJSON(data.objects);
+				//console.log(json_parsed);
+				/*
+				for (var u = 0; u < json_parsed.objects.length; u++){
+				    var message = json_parsed.objects[u];
+				    console.log(message.subject_id);
+				    //$('body').append($('<p>').html('User: '+user.Name+'<br />Value: '+user.Value));
+				}
+				
+				$.each(obj, function() {
+					console.log(this['subject_id']);
+			        //lang += this['Language'] + "<br/>";
+			    });*/
+				
+				 $.each(data.objects, function() {
+				 //console.log(index);
+				 $.each(this, function(k,v) {
+				 	console.log(k+" : "+ v);
+				 	//var obj=v[k];
+    				//console.log(v[k]);
+				 	//console.log(k+" : "+ v.profile__first_name);
+				 	});
+            
+        		});
+        		setTimeout(function() {
+                    refresh();
+                }, interval);
+			}
+		});
+		};
+		refresh();
+	});
+	
+	// using jQuery
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+</script>
+
+{% endblock javascript %}
+
+{% block side_nav %}
+<ul>
+	<li><a href="/manager/collaboration/subject/list/">Subjects</a></li>
+	<li><a href="/manager/collaboration/subject/add/">Create new Subject </a></li>
+</ul>
+{% endblock side_nav %}
+
+{% block content %}
+<h1>{{ subject.short_desc }}</h1>
+<p>{{ subject.long_desc }}</p>
+{% if system_message %}<p class="error"><strong>{{ system_message }}</strong></p>{% endif %}
+<div id="dialog-form" title="Add comment">
+<form id="subject_add" method="post" action="/manager/collaboration/subject/messages/">
+{% csrf_token %}
+<input type="hidden" id="subject_id" name="subject_id" value="{{ subject.id }}">
+<input type="hidden" id="last_update" name="last_update" value="{{ last_update }}">
+
+{{ form.as_p }}
+<button type="submit">Add</button>
+</form>
+</div>
+<div id="new_messages">here
+</div>
+{% if messages %}
+	<button id="add_comment">Add comment</button>
+	<br/>
+	{% for message in messages %}
+		<br/>
+		<table class="box">
+		<tr><td>{{ message.create_date }}<td>{{ message.profile__first_name }} {{ message.profile__last_name }}<br></td></tr>
+		<tr><td colspan="2">{{ message.comment }}</td></tr>
+		</table>
+	{% endfor %}
+{% endif %}
+<br/>
+<button id="add_comment_bottom">Add comment</button>
+
+{% endblock content %}

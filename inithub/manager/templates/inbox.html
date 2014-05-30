@@ -1,0 +1,93 @@
+{% extends "collaboration.html" %}
+{% block css %}
+<link rel="stylesheet" href="/static/css/smoothness/jquery-ui-1.8.23.custom.css" type="text/css">
+{% endblock css %}
+{% block javascript %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+<script src="/static/scripts/jquery.validate.min.js"></script>
+<script type="text/javascript">
+function submitForm(cmd, offerid)
+{
+	document.forms["process_offer_form"].elements["offer_id"].value=offerid;
+	document.forms["process_offer_form"].elements["cmd"].value=cmd;
+	if(cmd== "accept"){
+		$('#dialog-confirm').dialog({ title: "Accept Contributor" });
+		$('#dialog-confirm').html("Are you sure you want to accept this contributor?");
+	}
+	else {
+		$('#dialog-confirm').dialog({ title: "Reject Contributor" });
+		$('#dialog-confirm').html("Are you sure you want to reject this contributor?");
+	}
+	
+	$('#dialog-confirm').dialog('open');
+
+	//document.forms["process_offer_form"].submit();
+
+}
+</script>
+<script>
+  $(function() {
+    $( "#dialog-confirm" ).dialog({
+      resizable: false,
+      autoOpen: false,
+      height:180,
+      modal: true,
+      buttons: {
+        "Yes": function() {
+          $( this ).dialog( "close" );
+          document.forms["process_offer_form"].submit();
+        },
+        Cancel: function() {
+        	document.forms["process_offer_form"].elements["offer_id"].value="";
+		document.forms["process_offer_form"].elements["cmd"].value="";
+          $( this ).dialog( "close" );
+        }
+      }
+    });
+  
+});
+</script> 
+
+{% endblock javascript %}
+
+{% block content %}
+<div id="dialog-confirm" title="Remove Contributor?">
+  <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>This contributor will be removed from Initiative. Are you sure?</p>
+</div>
+<h1>Inbox</h1>
+{% if system_message %}<p><strong>{{ system_message }}</strong></p>{% endif %}
+<form id="process_offer_form" name="process_offer_form" method="post" action="/manager/inbox/">
+<input name="offer_id" id="offer_id" type="hidden" value="">
+<input name="cmd" id="cmd" type="hidden" value="">
+{% csrf_token %}
+<table id="inbox" class="data_grid_1">
+<tr><th>Initiative</th><th>Service</th><th>Provider</th><th>Date</th><th>Action</th></tr>
+{% for offer in offer_list %}
+	<tr>
+		<td>{{ offer.initiative__short_desc|truncatechars:15 }}</td>
+		<td>{{ offer.service__short_desc }}</td>
+		<td><a href="/manager/profile/view/{{ offer.profile__confirm_key }}/">{{ offer.profile__first_name }} {{ offer.profile__last_name }}</a></td>
+		<td>{{ offer.create_date|date:"M d, Y"  }}</td>
+		<td align="center"><a href="javascript: submitForm('accept', {{offer.id}})">Accept</a> | <a href="javascript: submitForm('reject', {{offer.id}})">Reject</a></td>		
+	</tr>
+{% endfor %}
+</table>
+</form>
+<br>
+<div class="pagination">
+    <span class="step-links">
+        {% if offer_list.has_previous %}
+            <a href="?page={{ offer_list.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ offer_list.number }} of {{ offer_list.paginator.num_pages }}.
+        </span>
+
+        {% if offer_list.has_next %}
+            <a href="?page={{ offer_list.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock content %}
