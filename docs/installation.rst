@@ -3,7 +3,7 @@ Virtual Machine setup
 **Install on host**
 
 * VirtualBox
-* Create Mint 15 VM
+* Create Ubuntu 14.04 LTS VM
 
 **Install on guest**
 
@@ -14,35 +14,32 @@ Virtual Machine setup
 
 **execute:**
 
+Note that on Ubuntu it is advised to use the distributions repository. If you are using different OS follow OS instructions for installing MySQL-python.
+
 #) sudo apt-get install python-pip
 #) sudo pip install virtualenv
 #) sudo pip install virtualenvwrapper
 #) sudo pip install sphinx (optional)
-#) sudo apt-get install mercurial
-#) sudo apt-get install libmysqlclient-dev
-#) sudo apt-get install python-dev
+#) sudo apt-get install git
+#) sudo apt-get install python-mysqldb
+
 
 **create project directory**
 
 ::
 
-    cd ~/projects/
-    hg clone ssh://rtermondt@hg.solutiosoft.com/hg/django_projects
-    cd django_projects
-    hg pull ssh://rtermondt@hg.solutiosoft.com/hg/django_projects
-    cd ~/projects/
-    hg clone ssh://rtermondt@hg.solutiosoft.com/hg/ihub_static
-    cd ihub_static/
-    hg pull ssh://rtermondt@hg.solutiosoft.com/hg/ihub_static
-
-
+    mkdir projects
+	cd ~/projects/
+    git clone https://github.com/richtermondt/inithub-web.git
+    cd inithub_web
+    
 **Create database**
 
 #) create new mysql schema
 
 ::
 
-    CREATE SCHEMA `InitHub` ;
+    CREATE SCHEMA `inithub` ;
 
 #) Create data structure
     * use latest prod export: ./database/rtermondt_ihub_nodata-*.sql
@@ -66,7 +63,7 @@ Virtual Machine setup
     cd django_projects
     virtualenv env
     source env/bin/activate
-    pip install -r requirements/dev.txt 
+    pip install --allow-external --allow-unverified -r requirements/dev.txt
 
 2) Update path variables in ./solutiosoft/solutiosoft/settings.py
 
