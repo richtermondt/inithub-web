@@ -1,0 +1,251 @@
+'''
+Copyright 2012-2014 Rich Termondt
+
+This file is part of Inithub-web.
+
+Inithub-web is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Inithub-web is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with Inithub-web.  If not, see <http://www.gnu.org/licenses/>.
+
+@author: rtermondt
+'''
+ALLOWED_HOSTS = ['127.0.0.1']
+
+LOGIN_URL = '/manager/signin/'
+
+AUTH_PROFILE_MODULE = 'manager.Profile'
+
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# mail settings - release 0.2
+EMAIL_HOST = 'yoursmtp.com'
+EMAIL_HOST_USER = 'yourhostuser'
+EMAIL_HOST_PASSWORD = 'yourhostpassword'
+DEFAULT_FROM_EMAIL = 'Your Support <support@yourdomain.com>'
+SERVER_EMAIL = 'support@mail.yourdomain.com'
+SEND_INTERNAL_EMAIL_ALERTS = True
+SEND_EXTERNAL_EMAIL_ALERTS = True
+INTERNAL_EMAIL = ['youruser@yourdomain.com']
+FROM_EMAIL = 'Your Support <support@yourdomain.com>'
+
+# pay settings, 0=FREE
+#INITIATIVE_LAUNCH_FEE = 4995
+INITIATIVE_LAUNCH_FEE = 0
+
+# stripe api key
+STRIPE_API_KEY = "yourstripeapikey"
+
+# axes settings - release 0.6
+AXES_LOGIN_FAILURE_LIMIT = 5
+AXES_LOCK_OUT_AT_FAILURE = True
+AXES_USE_USER_AGENT = False
+AXES_COOLOFF_TIME = 24
+AXES_LOGGER = 'axes.watch_login'
+AXES_LOCKOUT_TEMPLATE = 'account_lock.html'
+# AXES_LOCKOUT_URL
+AXES_VERBOSE = True
+
+SITE_ROOT = '/path/to/your/site/root'
+
+ADMINS = (
+    # ('Your Name', 'your_email@example.com'),
+)
+
+MANAGERS = ADMINS
+
+DATABASES = {
+    'default': {
+        # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'django.db.backends.mysql',
+        # Or path to database file if using sqlite3.
+        'NAME': 'yourdbname',
+        'USER': 'yourdbuser',                      # Not used with sqlite3.
+        'PASSWORD': 'yourdbpassword',                  # Not used with sqlite3.
+        # Set to empty string for localhost. Not used with sqlite3.
+        'HOST': '',
+        # Set to empty string for default. Not used with sqlite3.
+        'PORT': '3306',
+    }
+}
+
+# Local time zone for this installation. Choices can be found here:
+# http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
+# although not all choices may be available on all operating systems.
+# On Unix systems, a value of None will cause Django to use the same
+# timezone as the operating system.
+# If running in a Windows environment this must be set to the same as your
+# system time zone.
+TIME_ZONE = 'America/Chicago'
+
+# Language code for this installation. All choices can be found here:
+# http://www.i18nguy.com/unicode/language-identifiers.html
+LANGUAGE_CODE = 'en-us'
+
+SITE_ID = 1
+
+# If you set this to False, Django will make some optimizations so as not
+# to load the internationalization machinery.
+USE_I18N = True
+
+# If you set this to False, Django will not format dates, numbers and
+# calendars according to the current locale.
+USE_L10N = True
+
+# If you set this to False, Django will not use timezone-aware datetimes.
+USE_TZ = True
+
+# Absolute filesystem path to the directory that will hold user-uploaded files.
+# Example: "/home/media/media.lawrence.com/media/"
+MEDIA_ROOT = '/path/to/your/media/root'
+
+# URL that handles the media served from MEDIA_ROOT. Make sure to use a
+# trailing slash.
+# Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
+MEDIA_URL = 'mymedia/'
+
+# Absolute path to the directory static files should be collected to.
+# Don't put anything in this directory yourself; store your static files
+# in apps' "static/" subdirectories and in STATICFILES_DIRS.
+# Example: "/home/media/media.lawrence.com/static/"
+STATIC_ROOT = '/path/to/your/static/root'
+
+# URL prefix for static files.
+# Example: "http://media.lawrence.com/static/"
+
+STATIC_URL = 'http://yourstaticdomain.com/'
+
+
+# Additional locations of static files
+STATICFILES_DIRS = (
+    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    '/path/to/Python/Python27/Lib/site-packages/django/contrib/admin/static',
+    '/path/to/inithub-web/inithub/manager/static',
+)
+
+# List of finder classes that know how to find static files in
+# various locations.
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+)
+
+# Make this unique, and don't share it with anybody.
+SECRET_KEY = 'generate_your_secret_key'
+
+# List of callables that know how to import templates from various sources.
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+    #     'django.template.loaders.eggs.Loader',
+)
+
+MIDDLEWARE_CLASSES = (
+    'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'inithub.middleware.WebFactionFixes',
+    # Uncomment the next line for simple clickjacking protection:
+    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+)
+
+ROOT_URLCONF = 'inithub.urls'
+
+# Python dotted path to the WSGI application used by Django's runserver.
+WSGI_APPLICATION = 'inithub.wsgi.application'
+
+TEMPLATE_DIRS = (
+    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    '/path/to/inithub-web/inithub/manager/templates',
+    '/path/to/inithub-web/inithub/support/templates',
+)
+
+INSTALLED_APPS = (
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    # Uncomment the next line to enable the admin:
+    'django.contrib.admin',
+    # Uncomment the next line to enable admin documentation:
+    #'django.contrib.admindocs',
+    'manager',
+    'support',
+    'tastypie',
+    'axes',
+)
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    }
+}
+
+# A sample logging configuration. The only tangible logging
+# performed by this configuration is to send an email to
+# the site admins on every HTTP 500 error when DEBUG=False.
+# See http://docs.djangoproject.com/en/dev/topics/logging for
+# more details on how to customize your logging configuration.
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'standard': {
+            'format': "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'datefmt': "%d/%b/%Y %H:%M:%S"
+        },
+    },
+    'handlers': {
+        'null': {
+            'level': 'WARNING',
+            'class': 'django.utils.log.NullHandler',
+        },
+        'console': {
+            'level': 'WARNING',
+            'class': 'logging.StreamHandler',
+            'formatter': 'standard'
+        },
+        'logfile': {
+            'level': 'WARNING',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': SITE_ROOT + "/inithub.log",
+            'maxBytes': 50000,
+            'backupCount': 2,
+            'formatter': 'standard',
+        },
+    },
+    'loggers': {
+        'manager.views.public': {
+            'handlers': ['logfile', 'console'],
+            'level': 'WARNING',
+        },
+        'manager.utils': {
+            'handlers': ['logfile', 'console'],
+            'level': 'WARNING',
+        },
+        'manager.resources': {
+            'handlers': ['logfile', 'console'],
+            'level': 'WARNING',
+        },
+    }
+}
