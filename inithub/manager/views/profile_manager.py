@@ -38,6 +38,7 @@ import uuid
 from manager.utils import queue_email
 from manager.constants import PROFILE_CREATE_EVENT, CONFIRM_ACCOUNT_SUBJECT,\
     ACCOUNT_CONFIRMED_SUBJECT, ACCOUNT_CONFIRMED_EVENT, RECORDS_PER_PAGE
+from inithub import settings
 
 
 @login_required()
@@ -88,8 +89,16 @@ def profile_manager(request):
                               'form': form,
                               }, RequestContext(request))
 
-
-def profile_create(request, invite_key):
+        
+def profile_create(request, invite_key=None):
+    invite = getattr(settings, 'INVITATION_SYSTEM', None)
+    if invite == None or invite == False:
+        form = ProfileCreateForm()
+        return render_to_response('create_profile.html', {
+                                  'system_message': None,
+                                  'form': form,
+                                  }, context_instance=RequestContext(request))
+        
     try:
         invite = Invitation.objects.get(signup_key=invite_key)
         if invite.profile_id is not None:

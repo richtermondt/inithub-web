@@ -24,6 +24,7 @@ from django.views.generic import TemplateView
 from manager.resources import InitiativeResource, ApiTokenResource, UserResource, SubjectResource, MessageResource, ProfileResource, WebMessageResource
 from axes.decorators import watch_login
 from manager.views import signin, about, invitation
+from django.conf import settings
 
 
 # Uncomment the next two lines to enable the admin:
@@ -48,15 +49,24 @@ urlpatterns = patterns('manager.views',
                        url(r'^invitation/success/$',
                            TemplateView.as_view(template_name="thank_you.html")),
                        )
-
+invite = getattr(settings, 'INVITATION_SYSTEM', None)
+if invite == True:
+    urlpatterns += patterns('manager.views',
+                        url(r'^profile/create/(?P<invite_key>.+)/$',
+                            'profile_create'),
+                        )
+else:
+        urlpatterns += patterns('manager.views',
+                        url(r'^profile/create/$',
+                            'profile_create'),
+                        )
+        
 urlpatterns += patterns('manager.views',
                         url(r'^profile/add/$', 'profile_add'),
                         #url(r'^signin/$', 'signin'),
                         #url(r'^about/$', 'about'),
                         #url(r'^invitation/$', 'invitation'),
                         # match any character
-                        url(r'^profile/create/(?P<invite_key>.+)/$',
-                            'profile_create'),
                         url(r'^profile/confirm/(?P<confirm_key>.+)/$',
                             'email_confirm'),
                         # match only alpha/numeric
