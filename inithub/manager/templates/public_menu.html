@@ -5,7 +5,8 @@
 		<ul>
 			<li><a href="/">Home</a></li>
 			<li><a href="http://blog.inithub.com">Blog</a></li>
-			<li><a href="/manager/signin/">Sign-in</a></li>						
+			<li><a href="/manager/signin/">Sign-in</a></li>
+			{% if INVITATION_SYSTEM == True %}<li><a href="/manager/invitation/">Request Access</a></li>{% else %}<li><a href="/manager/profile/create/">Create Account</a></li>{% endif %}					
 		</ul>
 		<div class="social_media">
 			<a href="http://www.facebook.com/pages/InitHub/533556133325451"><img src="/static/images/facebook.png" width="24" height="24" alt="InitHub on Facebook" title="InitHub on Facebook"></a>

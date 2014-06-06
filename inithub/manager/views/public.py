@@ -130,7 +130,7 @@ def invitation(request):
     else:
         form = InvitationForm()
 
-    return render_to_response('landing.html', {
+    return render_to_response('invitation.html', {
                               'system_message': system_message,
                               'form': form,
                               }, context_instance=RequestContext(request))

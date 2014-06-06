@@ -30,9 +30,8 @@
 
 <form id="invitation" name="invitation" method="post" action="/manager/invitation/">
 {% csrf_token %}
-<h1>Invitation Request</h1>
-<p>InitHub is now accepting requests for invitations to our exciting new innovation network. Access to the system is free, and during our initial Beta period you can <strong>launch your initiative for no charge!</strong></p> 
-<p>Submit your email below to request an invitation. We will notify you as soon as your request has been processed.</p>
+<h1>Request Access</h1>
+<p>Submit your email below to request access. We will notify you as soon as your request has been processed.</p>
 {% if system_message %}<p class="error"><strong>{{ system_message }}</strong></p>{% endif %}
 {{ form.as_p }}
 

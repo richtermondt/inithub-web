@@ -29,6 +29,9 @@ TEMPLATE_DEBUG = DEBUG
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
+# Invitation sub-system. Enabling this requires users to request access to system
+INVITATION_SYSTEM = False
+
 # mail settings - release 0.2
 EMAIL_HOST = 'yoursmtp.com'
 EMAIL_HOST_USER = 'yourhostuser'
