@@ -153,7 +153,7 @@ def profile_add(request):
                         user = authenticate(username=email, password=password1)
                         login(request, user)
                         uid = uuid.uuid4()
-                        user_profile = user.get_profile()
+                        user_profile = user.profile
                         request.session['profile_id'] = user_profile.id
                         user_profile.first_name = first_name
                         user_profile.last_name = last_name

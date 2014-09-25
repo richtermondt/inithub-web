@@ -18,6 +18,7 @@ along with Inithub-web.  If not, see <http://www.gnu.org/licenses/>.
 
 @author: rtermondt
 '''
+from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
@@ -61,7 +62,7 @@ def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
 
-post_save.connect(create_user_profile, sender=User)
+post_save.connect(create_user_profile, sender=settings.AUTH_USER_MODEL)
 
 
 class Profile_Rating(models.Model):

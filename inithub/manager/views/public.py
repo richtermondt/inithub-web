@@ -20,11 +20,12 @@ The copyright holder(s) may consider permitting uses outside of the license term
 
 @author: rtermondt
 '''
+from inithub import settings
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
-from manager.forms import InvitationForm, SigninForm
+from manager.forms import InvitationForm, SigninForm, ProfileCreateForm
 from manager.models import Profile, Invitation, Promotion
 import uuid
 from django.db import IntegrityError
@@ -37,7 +38,11 @@ log = logging.getLogger(__name__)
 
 
 def about(request):
-    form = InvitationForm()
+    if settings.INVITATION_SYSTEM == True:
+        form = InvitationForm()
+    else: 
+        form = ProfileCreateForm()
+        
     return render_to_response('landing.html', {
                               'system_message': None,
                               'form': form,

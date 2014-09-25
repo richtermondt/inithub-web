@@ -20,6 +20,7 @@
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
 
 <script>
+{% if INVITATION_SYSTEM == True %}
 $(document).ready(function(){
    $("#invitation").validate({
    rules: {
@@ -34,6 +35,63 @@ $(document).ready(function(){
  $(function() {
 		$("button").button();
 	});
+ 
+{% else %}
+ $(document).ready(function(){
+   $("#signup").validate({
+   errorClass:"errors",
+   rules: {
+   	email: {
+   		required:true,
+   		email:true
+   	},
+   	password1: {
+   		required:true,
+   		minlength: 6
+   	},
+   	password2: {
+   		required:true,
+   		minlength: 6,
+   		equalTo: "#id_password1"
+   	},
+   	first_name: 'required',
+   	last_name: 'required',
+   	agree: 'required'
+   	
+   },
+   messages: {
+		first_name: "Please enter your firstname",
+		last_name: "Please enter your lastname",
+		username: {
+			required: "Please enter a username",
+			minlength: "Your username must consist of at least 2 characters"
+		},
+		password1: {
+			required: "Please provide a password",
+			minlength: "Your password must be at least 6 characters long"
+		},
+		password2: {
+			required: "Please provide a password",
+			minlength: "Your password must be at least 6 characters long",
+			equalTo: "Please enter the same password as above"
+		},
+		email: "Please enter a valid email address",
+		agree: "Please accept our Terms of Service"
+	},
+	errorPlacement: function(error, element) {
+        element.before(error);
+        offset = element.offset();
+        error.css('left', offset.left);
+        error.css('top', offset.top - element.outerHeight());
+    }
+   });
+ });
+ $(function() {
+	$("button").button();
+});
+
+{% endif %}
+
  </script>
  
 </head>
@@ -52,7 +110,7 @@ $(document).ready(function(){
 			<li><a href="/">Home</a></li>
 			<li><a href="http://blog.inithub.com">Blog</a></li>
 			<li><a href="/manager/signin/">Sign-in</a></li>
-			{% if INVITATION_SYSTEM == True %}<li><a href="/manager/invitation/">Request Access</a></li>{% else %}<li><a href="/manager/profile/create/">Create Account</a></li>{% endif %}						
+			{% if INVITATION_SYSTEM == True %}<li><a href="/manager/invitation/">Request Access</a></li>{% else %}<li><a href="/manager/profile/create/">Create Account</a></li>{% endif %}
 		</ul>
 		<div class="social_media">
 			<a href="http://www.facebook.com/pages/InitHub/533556133325451"><img src="/static/images/facebook.png" width="24" height="24" alt="InitHub on Facebook" title="InitHub on Facebook"></a>
@@ -84,13 +142,32 @@ $(document).ready(function(){
 	<div id="aside" class="grid_5">
 
 <div class="offer_1">
-<h3>Request Access</h3>
-<p>InitHub is now accepting requests to access to our exciting new innovation network. Access to the system is free, and during our initial Beta period you can <strong>launch your initiative for no charge!</strong> No obligations and no credit card required. Submit your email below to request an invitation.</p>
-<form id="invitation" name="invitation" method="post" action="/manager/invitation/">
-{% csrf_token %}
-{% if system_message %}<p class="error"><strong>{{ system_message }}</strong></p>{% endif %}
-{{ form.as_p }}<button type="submit">Submit</button>
-</form>
+{% if INVITATION_SYSTEM == True %}
+	<h3>Request Access</h3>
+	<p>InitHub is now accepting requests to access to our exciting new innovation network. Access to the system is free, and during our initial Beta period you can <strong>launch your initiative for no charge!</strong> No obligations and no credit card required. Submit your email below to request an invitation.</p>
+	<form id="invitation" name="invitation" method="post" action="/manager/invitation/">
+	{% csrf_token %}
+	{% if system_message %}<p class="error"><strong>{{ system_message }}</strong></p>{% endif %}
+	{{ form.as_p }}<button type="submit">Submit</button>
+	</form>
+{% else %}
+	<form id="signup" name="signup" method="post" action="/manager/profile/add/">
+	{% csrf_token %}
+	
+	<h1>Sign-up form</h1>
+	{% if system_message %}<p class="error"><strong>{{ system_message }}</strong></p>{% endif %}
+	<p>Password must be at least 6 characters.</p>
+	<table id="create_profile_table">
+	{{ form.as_table }}
+	</table>
+	<p>
+		<input type="checkbox" class="checkbox" id="agree" name="agree" value='true'/> 
+		<label for="agree">Please agree to our <a target="inithub_static" href="/static/terms.html">Terms of Service</a></label>	
+	</p>
+	<button type="submit">Sign-up</button>
+	</form>
+{% endif %}
+
 </div>
 
 

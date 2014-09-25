@@ -56,7 +56,7 @@ class TicketForm(ModelForm):
 
     class Meta:
         model = Ticket
-        exclude = ('is_resolved')
+        exclude = ['is_resolved']
 
 
 class Item_Type(models.Model):
@@ -79,4 +79,4 @@ class ItemForm(ModelForm):
 
     class Meta:
         model = Item
-        exclude = ('is_solution')
+        exclude = ['is_solution']
