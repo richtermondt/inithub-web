@@ -25,13 +25,14 @@ RequireJS - new BSD, and MIT
 Python libraries
 ----------------
 
-Django 1.5.2 - BSD License
-django-axes 1.2.6 - MIT License
-django-tastypie 0.10.0,BSD License,Python 2.6+ or Python 3.3+
+Django 1.7 - BSD License
+django-axes 1.3.6 - MIT License
+django-tastypie 0.12.0,BSD License,Python 2.6+ or Python 3.3+
 stripe 1.9.3 
 python-memcached 1.53 - Python Software Foundation License
 MySQL-python 1.2.4 - GPL License
 python-mimeparse 0.1.4 - MIT License
+django-localflavor 1.0 - BSD License
 
 Authors
 --------
