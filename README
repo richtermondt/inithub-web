@@ -3,8 +3,7 @@
 Licensing
 ---------
 
-Please see the file called COPYING.
-The copyright holder(s) may consider permitting uses outside of the license terms on a case-by-case basis
+Please see the file called LICENSE.
   
 The Latest Version
 ------------------
