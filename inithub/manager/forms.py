@@ -4,8 +4,8 @@
 '''
 from django import forms
 from django.core.validators import MinLengthValidator
-from django.contrib.localflavor.us.us_states import STATE_CHOICES
-from django.contrib.localflavor.us.forms import USStateField
+from localflavor.us.us_states import STATE_CHOICES
+from localflavor.us.forms import USStateField
 
 
 class UserInviteForm(forms.Form):
