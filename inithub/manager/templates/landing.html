@@ -136,6 +136,7 @@ $(document).ready(function(){
 <li>Rate registered users that you collaborate with</li>
 <li>Prepare for a crowdfunding campaign by leveraging the InitHub tools and community</li>
 <li>Collaborate from your Android powered device</li>
+<li>Free and open source service</li>
 </ul>
 
 	</div>
@@ -154,7 +155,7 @@ $(document).ready(function(){
 	<form id="signup" name="signup" method="post" action="/manager/profile/add/">
 	{% csrf_token %}
 	
-	<h1>Sign-up form</h1>
+	<h1>Register</h1>
 	{% if system_message %}<p class="error"><strong>{{ system_message }}</strong></p>{% endif %}
 	<p>Password must be at least 6 characters.</p>
 	<table id="create_profile_table">
@@ -177,7 +178,7 @@ $(document).ready(function(){
 <a target="inithub_static" href="/static/terms.html">Terms</a> | <a target="inithub_static" href="/static/privacy.html">Privacy</a> | <a target="inithub_static" href="/static/affiliates.html">Affiliates</a>
 </div>	
 <div id="copyright">
-	Free software license | <a target="_blank" href="https://github.com/richtermondt/inithub-web">Get the code</a>
+	<a target="_blank" href="http://opensource.org/licenses/MIT">Open Source licence (MIT)</a> | <a target="_blank" href="https://github.com/richtermondt/inithub-web">Contribute</a>
 </div>
 </div>
 </div>
