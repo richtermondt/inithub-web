@@ -11,7 +11,7 @@ from django.db.models import Avg
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.utils.simplejson import dumps
+from json import dumps
 from manager.constants import RECORDS_PER_PAGE, INITIATIVE_LAUNCH
 from manager.dao import inbox_dao, initiative_dao
 from manager.forms import InitiativeForm
