@@ -118,7 +118,7 @@ def contributor_offers(request, uuid=None):
 
     offer_list = Initiative_Service_Offer.objects.filter(
         initiative_id=initiative.id,
-        is_accepted=None).values(
+        is_accepted=False).values(
         'id',
         'is_accepted',
         'service__short_desc',
@@ -497,7 +497,8 @@ def initiative_service_offer(request, uuid=None):
                 Initiative_Service_Offer.objects.create(
                     profile_id=request.session['profile_id'],
                     initiative_id=initiative_id,
-                    service_id=service)
+                    service_id=service,
+                    is_accepted=False)
         system_message = 'Update complete'
     else:
         system_message = None
