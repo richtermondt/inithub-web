@@ -9,7 +9,7 @@ from manager.models import Initiative_Service_Offer
 def get_inbox_offer_count(profile_id):
     offer_list = Initiative_Service_Offer.objects.filter(
         initiative__profile_id=profile_id,
-        is_accepted=None).values(
+        is_accepted=False).values(
         'id',
         'is_accepted',
         'profile_id',
@@ -24,7 +24,7 @@ def get_inbox_offer_count(profile_id):
 def get_offer_list(profile_id):
     offer_list = Initiative_Service_Offer.objects.filter(
         initiative__profile_id=profile_id,
-        is_accepted=None).values(
+        is_accepted=False).values(
         'id',
         'is_accepted',
         'create_date',
