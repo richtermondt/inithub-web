@@ -5,7 +5,7 @@ Hello,
 
 You can create your account by navigating to the following URL:
 
-http://www.inithub.com/innohub/profile/create/{{ uid }}/
+http://www.inithub.com/manager/profile/create/{{ uid }}/
 
 Thank you!
 
