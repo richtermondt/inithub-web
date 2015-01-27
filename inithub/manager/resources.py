@@ -92,7 +92,7 @@ class InitiativeResource(ModelResource):
         if not user.is_active:
             raise NotFound("User not active")
 
-        user_profile = user.get_profile()
+        user_profile = user.profile
 
         initiative_id_list = initiative_dao.all_contributing_initiative_ids(
             user_profile.id)
@@ -121,7 +121,7 @@ class SubjectResource(ModelResource):
         if not user.is_active:
             raise NotFound("User not active")
 
-        user_profile = user.get_profile()
+        user_profile = user.profile
 
         initiative_id_list = initiative_dao.all_contributing_initiative_ids(
             user_profile.id)
@@ -160,7 +160,7 @@ class MessageResource(ModelResource):
         if not user.is_active:
             raise NotFound("User not active")
 
-        user_profile = user.get_profile()
+        user_profile = user.profile
         comm = bundle.data['comment']
         subject_id = bundle.data['subject_id']
         bundle.obj = Message(comment=comm,
