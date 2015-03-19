@@ -1,0 +1,488 @@
+/*
+	Waypoint by Pixelarity
+	pixelarity.com @pixelarity
+	License: pixelarity.com/license
+*/
+
+/*********************************************************************************/
+/* Basic                                                                         */
+/*********************************************************************************/
+
+	body
+	{
+		line-height: 1.75em;
+		font-size: 11pt;
+		letter-spacing: 0;
+		min-width: 320px;
+	}
+
+	h2
+	{
+		font-size: 1.30em;
+	}
+
+	.container
+	{
+		padding: 0px 15px;
+	}
+
+	section,
+	article
+	{
+		clear: both;
+		margin: 2em 0 2em 0 !important;
+	}
+
+	section > :first-child,
+	article > :first-child
+	{
+		margin-top: 0 !important;
+	}
+
+	section:first-child,
+	article:first-child
+	{
+		margin-top: 0 !important;
+	}
+
+	header
+	{
+		margin-bottom: 2em;
+	}
+	
+		header h2
+		{
+			line-height: 1.4em;
+			font-size: 1.3em;
+		}
+	
+	/* Forms */
+
+		form
+		{
+		}
+
+			form input[type=text],
+			form input[type=password],
+			form select,
+			form textarea
+			{
+				padding: 0.70em;
+				font-size: 1em;
+			}
+
+			form .button
+			{
+				display: block;
+				margin-right: 0 !important;
+			}
+
+	/* Buttons */
+		
+		.button
+		{
+			display: block;
+			margin-top: 1.5em !important;
+			padding: 0.50em;
+		}
+
+	/* Lists */
+
+		ul.icons
+		{
+		}	
+
+			ul.icons > li
+			{
+				padding-left: 6em;
+			}
+
+		ul.social
+		{
+		}
+		
+			ul.social li a:before
+			{
+				width: 45px;
+				height: 45px;
+				line-height: 45px;
+				font-size: 1.25em;
+			}
+
+	/* Meta */
+
+		.meta
+		{
+			font-size: 0.80em;
+		}
+
+/*********************************************************************************/
+/* Mobile UI                                                                     */
+/*********************************************************************************/
+
+	#titleBar
+	{
+		background: none;
+	}
+
+		#titleBar .title
+		{
+			display: none;
+		}
+
+		#titleBar .toggle
+		{
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 80px;
+			height: 60px;
+		}
+
+			#titleBar .toggle:before
+			{
+				content: '';
+				position: absolute;
+				left: 7px;
+				top: 7px;
+				background: rgba(0,0,0,0.2);
+				width: 60px;
+				height: 35px;
+				border-radius: 4px;
+			}
+
+			#titleBar .toggle:after
+			{
+				content: '';
+				display: block;
+				width: 20px;
+				height: 12px;
+				position: absolute;
+				left: 27px;
+				top: 19px;
+				background: url('images/toggle.svg') 0px 0px no-repeat;
+			}
+
+	#navPanel
+	{
+		background: #292C31;
+		box-shadow: inset -10px 0px 10px 0px rgba(0,0,0,0.1);
+	}
+
+		#navPanel .link
+		{
+			display: block;
+			color: #888;
+			text-decoration: none;
+			height: 44px;
+			line-height: 44px;
+			padding: 0 1em 0 1em;
+		}
+		
+			#navPanel .link:first-child
+			{
+				border-top: 0;
+			}
+			
+			#navPanel .link.depth-0
+			{
+				color: #fff;
+			}
+
+			#navPanel .indent-1 { display: inline-block; width: 1em; }
+			#navPanel .indent-2 { display: inline-block; width: 2em; }
+			#navPanel .indent-3 { display: inline-block; width: 3em; }
+			#navPanel .indent-4 { display: inline-block; width: 4em; }
+			#navPanel .indent-5 { display: inline-block; width: 5em; }
+			#navPanel .depth-0 { color: #fff; }
+
+/*********************************************************************************/
+/* Header                                                                        */
+/*********************************************************************************/
+
+	#header
+	{
+	}
+
+/*********************************************************************************/
+/* Logo                                                                          */
+/*********************************************************************************/
+
+	#logo
+	{
+		padding: 2em 0em 2em 0em;
+	}
+
+		.homepage #logo
+		{
+			padding-top: 3em;
+		}
+	
+		#logo a
+		{
+			display: block;
+			line-height: 2em;
+			text-align: center;
+			font-size: 1.6em;
+			color: #FFF;
+		}
+
+/*********************************************************************************/
+/* Nav                                                                           */
+/*********************************************************************************/
+
+	#nav
+	{
+		display: none;
+	}
+
+/*********************************************************************************/
+/* Banner                                                                        */
+/*********************************************************************************/
+
+	#banner
+	{
+		padding: 3em 0em 2em 0em;
+		border-top: 1px solid rgba(255,255,255,0.15);
+	}
+
+		#banner header
+		{
+		}
+		
+			#banner header h2
+			{
+				line-height: 1.3em;
+				letter-spacing: 0.03em;
+				font-size: 1.3em;
+			}
+
+			#banner header span
+			{
+				padding-top: 1em;
+				font-size: 1em;
+			}
+
+/*********************************************************************************/
+/* Main                                                                          */
+/*********************************************************************************/
+
+	#main
+	{
+		padding: 3em 0em 3em 0em;
+	}
+
+/*********************************************************************************/
+/* Content                                                                       */
+/*********************************************************************************/
+
+	#content
+	{
+	}
+		
+		#content header
+		{
+			margin-bottom: 2em;
+		}
+	
+		#content header h2
+		{
+			font-size: 1.4em;
+		}
+		
+		#content header .byline
+		{
+			font-size: 1.1em;
+			font-weight: 300;
+		}
+
+		#content h3
+		{
+			padding: 1.5em 0em 1.5em 0em;
+			font-size: 1.2em;
+		}
+		
+/*********************************************************************************/
+/* Sidebar                                                                       */
+/*********************************************************************************/
+
+	#sidebar
+	{
+	}
+
+	.contact #sidebar
+	{
+		overflow: hidden;
+		padding-top: 2em !important;
+	}
+
+/*********************************************************************************/
+/* Footer                                                                        */
+/*********************************************************************************/
+	
+	#footer
+	{
+		padding-top: 3em;
+		margin-top: 3em;
+	}
+	
+	.contact #footer
+	{
+		margin-top: 0 !important;
+	}
+	
+/*********************************************************************************/
+/* Copyright                                                                     */
+/*********************************************************************************/
+
+	#copyright 
+	{
+		padding: 4em 0em;
+		text-align: center;
+	}
+	
+		#copyright .container
+		{
+			padding: 1.5em 15px 1em 15px;
+		}
+
+/*********************************************************************************/
+/* Featured                                                                      */
+/*********************************************************************************/
+	
+	#featured
+	{
+		padding: 4em 0em 3em 0em;
+	}
+	
+		#featured section
+		{
+			overflow: hidden;
+			margin-bottom: 2em !important;
+		}
+
+		#featured h3
+		{
+			margin-bottom: 1em;
+			font-size: 1.5em;
+		}
+	
+		#featured .pennant
+		{
+			margin: 0.50em 0em;
+			font-size: 4em;
+			line-height: 1em;
+		}
+		
+		#featured .button
+		{
+			margin-top: 1em;
+		}
+
+/*********************************************************************************/
+/* Device Image                                                                  */
+/*********************************************************************************/
+
+	#box1
+	{
+		position: relative;
+		width: 220px;
+		height: 140px !important;
+		margin-bottom: 1em;
+		background-size: 100%;
+		left: 50%;
+		margin-left: -110px;
+	}		
+
+	#box2
+	{
+		display: block;
+		left: 1.5em;
+		width: 70%;
+		background: url(images/tablet-img.png) no-repeat center top;
+		background-size: 100% 100%;
+		padding: 1.1em 0.9em 0em 0.9em;
+	}
+
+		#box2:after
+		{
+			content: '';
+			position: absolute;
+			display: block;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			background: url(images/tablet-shadow.png);
+			background-size: 100% 100%;
+		}
+
+		#box2 img
+		{
+			display: block;
+			width: 100%;
+		}
+
+	#box3
+	{
+		display: block;
+		right: 1.5em;
+		width: 50%;
+		background: url(images/mobile-img.png) no-repeat right top;
+		background-size: 100% 100%;
+		padding: 1.5em 0.75em 0em 0.75em;
+	}
+
+		#box3:after
+		{
+			content: '';
+			position: absolute;
+			display: block;
+			width: 100%;
+			height: 100%;
+			bottom: 0;
+			background-image: url(images/mobile-shadow.png);
+			background-size: 100% 100%;
+		}
+
+		#box3 img
+		{
+			display: block;
+			width: 100%;
+		}
+
+/*********************************************************************************/
+/* Slidertron                                                                    */
+/*********************************************************************************/		
+
+	#slider
+	{
+		width: 240px;
+		height: 190px;
+		background-size: 100%;
+		margin: 0 auto 2em auto;
+	}
+
+		#slider .viewer
+		{
+			position: relative;
+			top: 8px;
+			margin: 0 auto;
+			width: 224px;
+			height: 180px;
+		}
+		
+			#slider .viewer .reel .slide
+			{
+			}
+
+				#slider .viewer .reel .slide img
+				{
+					display: block;
+					width: 100%;
+				}
+
+		#slider .previous-button,
+		#slider .next-button
+		{
+			display: none;
+		}
