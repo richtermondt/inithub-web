@@ -1,185 +1,222 @@
-
-<!DOCTYPE html>
-<html lang=en>
-<head>
-<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
-<meta charset=utf-8>
-<title>Collaborative Innovation Platform - InitHub</title>
-
-<meta name="description" content="Crowdsourcing Innovation Network - InitHub" />
-<meta name="keywords" content="crowdsourcing,innovation,collaboration,network,mastermind" />
-
-<meta name="ROBOTS" content="INDEX, FOLLOW" />
-
-<link rel="stylesheet" href="/static/css/960.css" type="text/css">
-<link rel="stylesheet" href="/static/css/base_style.css" type="text/css">
-<link rel="stylesheet" href="/static/css/mintchoc/jquery-ui.css" type="text/css">	
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script src="/static/scripts/jquery.validate.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
-
-<script>
-{% if INVITATION_SYSTEM == True %}
-$(document).ready(function(){
-   $("#invitation").validate({
-   rules: {
-   	email: {
-   		required:true,
-   		email:true
-   	},
-   	
-   }
-   });
- });
- $(function() {
-		$("button").button();
-	});
- 
-{% else %}
- $(document).ready(function(){
-   $("#signup").validate({
-   errorClass:"errors",
-   rules: {
-   	email: {
-   		required:true,
-   		email:true
-   	},
-   	password1: {
-   		required:true,
-   		minlength: 6
-   	},
-   	password2: {
-   		required:true,
-   		minlength: 6,
-   		equalTo: "#id_password1"
-   	},
-   	first_name: 'required',
-   	last_name: 'required',
-   	agree: 'required'
-   	
-   },
-   messages: {
-		first_name: "Please enter your firstname",
-		last_name: "Please enter your lastname",
-		username: {
-			required: "Please enter a username",
-			minlength: "Your username must consist of at least 2 characters"
-		},
-		password1: {
-			required: "Please provide a password",
-			minlength: "Your password must be at least 6 characters long"
-		},
-		password2: {
-			required: "Please provide a password",
-			minlength: "Your password must be at least 6 characters long",
-			equalTo: "Please enter the same password as above"
-		},
-		email: "Please enter a valid email address",
-		agree: "Please accept our Terms of Service"
-	},
-	errorPlacement: function(error, element) {
-        element.before(error);
-        offset = element.offset();
-        error.css('left', offset.left);
-        error.css('top', offset.top - element.outerHeight());
-    }
-   });
- });
- $(function() {
-	$("button").button();
-});
-
-{% endif %}
-
- </script>
- 
-</head>
-
-<body>				
-
-<div id="container" class="container_12">
-	<div id="header" class="grid_12">
-		<h1>
-			InitHub
-		</h1>
-	</div>
-	<div id="navigation" class="grid_12">
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Collaborative Innovation Platform - InitHub</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="Crowdsourcing Innovation Network - InitHub" />
+		<meta name="keywords" content="crowdsourcing,innovation,collaboration,network,mastermind" />
+		<meta name="ROBOTS" content="INDEX, FOLLOW" />
+		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+		<script src="/static/js/jquery.min.js"></script>
+		<script src="/static/js/jquery.dropotron.min.js"></script>
+		<script src="/static/js/jquery.slidertron.min.js"></script>
+		<script src="/static/js/skel.min.js"></script>
+		<script src="/static/js/skel-layers.min.js"></script>
+		<script src="/static/js/init.js"></script>
+		<script src="/static/js/jquery.validate.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
 		
-		<ul>
-			<li><a href="/">Home</a></li>
-			<li><a href="http://blog.inithub.com">Blog</a></li>
-			<li><a href="/manager/signin/">Sign-in</a></li>
-			{% if INVITATION_SYSTEM == True %}<li><a href="/manager/invitation/">Request Access</a></li>{% else %}<li><a href="/manager/profile/create/">Create Account</a></li>{% endif %}
-		</ul>
-		<div class="social_media">
-			<a href="http://www.facebook.com/pages/InitHub/533556133325451"><img src="/static/images/facebook.png" width="24" height="24" alt="InitHub on Facebook" title="InitHub on Facebook"></a>
-			<a href="http://www.linkedin.com/company/solutiosoft-llc"><img src="/static/images/linkedin.png" width="24" height="24" alt="Solutiosoft on Linkedin" title="Solutiosoft on Linkedin"></a>
-			<a href="https://twitter.com/InitHub"><img src="/static/images/twitter.png" width="24" height="24" alt="InitHub on Twitter" title="InitHub on Twitter"></a>
-		</div>
-
-	</div>
-
-	<div id="content" class="grid_7">
+		<noscript>
+			<link rel="stylesheet" href="css/skel.css" />
+			<link rel="stylesheet" href="css/style.css" />
+			<link rel="stylesheet" href="css/style-desktop.css" />
+		</noscript>
+		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
 		
-<h1>Crowdsourcing Innovations to Life</h1>
-<p>InitHub is a crowdsourcing innovation network designed to facilitate forming key relationships, with the common goal of advancing an idea or innovation. Our goal is to create a trusted, self governing community dedicated to bringing innovations to life.</p>
-<h2>Key Benefits</h2>
-<ul>
-<li>Create, refine and publish Initiatives to our private community</li>
-<li>Define key milestones, set target and completed dates for each milestone</li>
-<li>Request the services you need to advance your initiative</li>
-<li>Connect with users and build a mastermind team to help bring your idea to life</li>
-<li>Browse and search for interesting Initiatives</li>
-<li>Offer your services to advance an Initiative</li>
-<li>Rate and comment on Initiatives</li>
-<li>Rate registered users that you collaborate with</li>
-<li>Prepare for a crowdfunding campaign by leveraging the InitHub tools and community</li>
-<li>Collaborate from your Android powered device</li>
-<li>Free and open source service</li>
-</ul>
+		<script>
+			{% if INVITATION_SYSTEM == True %}
+			$(document).ready(function(){
+			   $("#invitation").validate({
+			   rules: {
+				email: {
+					required:true,
+					email:true
+				},
+				
+			   }
+			   });
+			 });
+			 $(function() {
+					$("button").button();
+				});
+			 
+			{% else %}
+			 $(document).ready(function(){
+			   $("#signup").validate({
+			   errorClass:"errors",
+			   rules: {
+				email: {
+					required:true,
+					email:true
+				},
+				password1: {
+					required:true,
+					minlength: 6
+				},
+				password2: {
+					required:true,
+					minlength: 6,
+					equalTo: "#id_password1"
+				},
+				first_name: 'required',
+				last_name: 'required',
+				agree: 'required'
+				
+			   },
+			   messages: {
+					first_name: "Please enter your firstname",
+					last_name: "Please enter your lastname",
+					username: {
+						required: "Please enter a username",
+						minlength: "Your username must consist of at least 2 characters"
+					},
+					password1: {
+						required: "Please provide a password",
+						minlength: "Your password must be at least 6 characters long"
+					},
+					password2: {
+						required: "Please provide a password",
+						minlength: "Your password must be at least 6 characters long",
+						equalTo: "Please enter the same password as above"
+					},
+					email: "Please enter a valid email address",
+					agree: "Please accept our Terms of Service"
+				},
+				errorPlacement: function(error, element) {
+					element.before(error);
+					offset = element.offset();
+					error.css('left', offset.left);
+					error.css('top', offset.top - element.outerHeight());
+				}
+			   });
+			 });
+			 $(function() {
+				$("button").button();
+			});
 
-	</div>
-	<div id="aside" class="grid_5">
+			{% endif %}
 
-<div class="offer_1">
-{% if INVITATION_SYSTEM == True %}
-	<h3>Request Access</h3>
-	<p>InitHub is now accepting requests to access to our exciting new innovation network. Access to the system is free, and during our initial Beta period you can <strong>launch your initiative for no charge!</strong> No obligations and no credit card required. Submit your email below to request an invitation.</p>
-	<form id="invitation" name="invitation" method="post" action="/manager/invitation/">
-	{% csrf_token %}
-	{% if system_message %}<p class="error"><strong>{{ system_message }}</strong></p>{% endif %}
-	{{ form.as_p }}<button type="submit">Submit</button>
-	</form>
-{% else %}
-	<form id="signup" name="signup" method="post" action="/manager/profile/add/">
-	{% csrf_token %}
+		</script>
+	</head>
+	<body class="right-sidebar" id="top">
+
+		<!-- Header -->
+			<div id="header">
+				<div class="container">
+						
+					<!-- Logo -->
+						<div id="logo">
+							<h1><a href="index.html">InitHub</a></h1>
+						</div>
+					
+					<!-- Nav -->
+						<nav id="nav">
+							<ul>
+								<li class="active"><a href="index.html">Home</a></li>
+								<li><a href="/manager/signin/">Sign-in</a></li>
+								<li><a href="/manager/invitation/">Request Access</a></li>
+								<li><a href="http://blog.inithub.com">Blog</a></li>
+							</ul>
+						</nav>
+
+				</div>
+			</div>
+
+		<!-- Main -->
+			<div id="main">
+				<div class="container">
+
+					<div class="row">
+
+						<!-- Content -->
+							<div id="content" class="8u">
+								<article>
+									<header>
+										<h2>InitHub</h2>
+										<span class="byline">Crowdsourcing Innovations</span>
+									</header>
+									<p>InitHub is a crowdsourcing innovation network designed to facilitate forming key relationships, with the common goal of advancing an idea or innovation. Our goal is to create a trusted, self governing community dedicated to bringing innovations to life.</p>
+									<h3>Key Benefits</h3>
+									<ul class="style1">
+									<li>Create, refine and publish Initiatives to our private community</li>
+									<li>Define key milestones, set target and completed dates for each milestone</li>
+									<li>Request the services you need to advance your initiative</li>
+									<li>Connect with users and build a mastermind team to help bring your idea to life</li>
+									<li>Browse and search for interesting Initiatives</li>
+									<li>Offer your services to advance an Initiative</li>
+									<li>Rate and comment on Initiatives</li>
+									<li>Rate registered users that you collaborate with</li>
+									<li>Prepare for a crowdfunding campaign by leveraging the InitHub tools and community</li>
+									<li>Collaborate from your Android powered device</li>
+									<li>Free and open source service</li>
+									</ul>
+								</article>
+							</div>
+
+						<!-- Sidebar -->
+							<div id="sidebar" class="4u">
 	
-	<h1>Register</h1>
-	{% if system_message %}<p class="error"><strong>{{ system_message }}</strong></p>{% endif %}
-	<p>Password must be at least 6 characters.</p>
-	<table id="create_profile_table">
-	{{ form.as_table }}
-	</table>
-	<p>
-		<input type="checkbox" class="checkbox" id="agree" name="agree" value='true'/> 
-		<label for="agree">Please agree to our <a target="inithub_static" href="/static/terms.html">Terms of Service</a></label>	
-	</p>
-	<button type="submit">Sign-up</button>
-	</form>
-{% endif %}
+								<section>
+									{% if INVITATION_SYSTEM == True %}
+										<header>
+											<h2>Request Access</h2>
+										</header>
+										<p>InitHub is now accepting requests to access to our exciting new innovation network. Access to the system is free, and during our initial Beta period you can <strong>launch your initiative for no charge!</strong> No obligations and no credit card required. Submit your email below to request an invitation.</p>
+										<form id="invitation" name="invitation" method="post" action="/manager/invitation/">
+										{% csrf_token %}
+										{% if system_message %}<p class="error"><strong>{{ system_message }}</strong></p>{% endif %}
+										{{ form.as_p }}
+										<button type="submit" class="button small">Submit</button>
+										</form>
+									{% else %}
+										<form id="signup" name="signup" method="post" action="/manager/profile/add/">
+										{% csrf_token %}
+										
+										<header>
+											<h2>Register</h2>
+										</header>
+										{% if system_message %}<p class="error"><strong>{{ system_message }}</strong></p>{% endif %}
+										<p>Password must be at least 6 characters.</p>
+										<table id="create_profile_table">
+										{{ form.as_table }}
+										</table>
+										<p>
+											<input type="checkbox" class="checkbox" id="agree" name="agree" value='true'/> 
+											<label for="agree">Please agree to our <a target="inithub_static" href="/static/terms.html">Terms of Service</a></label>	
+										</p>
+										<button type="submit" class="button small">Sign-up</button>
+										</form>
+									{% endif %}									
+								</section>				
+								
+							</div>
 
-</div>
+					</div>
+					
+					
+				</div>
+			</div>
 
+		<!-- Copyright -->
+			<div id="copyright">
+				<a href="#top" class="bubble-top scrolly">Top</a>
 
-</div>
-	<div id="footer" class="grid_12">
-<div id="terms">
-<a target="inithub_static" href="/static/terms.html">Terms</a> | <a target="inithub_static" href="/static/privacy.html">Privacy</a> | <a target="inithub_static" href="/static/affiliates.html">Affiliates</a>
-</div>	
-<div id="copyright">
-	<a target="_blank" href="http://opensource.org/licenses/MIT">Open Source licence (MIT)</a> | <a target="_blank" href="https://github.com/richtermondt/inithub-web">Contribute</a>
-</div>
-</div>
-</div>
-</body></html>
+				<div class="container">
+					<div class="row">
+						<div class="6u">
+							<span><a target="inithub_static" href="/static/terms.html">Terms</a> | <a target="inithub_static" href="/static/privacy.html">Privacy</a> | 	<a target="_blank" href="http://opensource.org/licenses/MIT">Open Source licence (MIT)</a> | <a target="_blank" href="https://github.com/richtermondt/inithub-web">Contribute</a>
+							</span>
+						</div>
+						<div class="6u">
+							<ul class="social">
+								<li><a href="https://twitter.com/InitHub" class="icon fa-twitter"><span>Twitter</span></a></li>
+								<li><a href="http://www.facebook.com/pages/InitHub/533556133325451" class="icon fa-facebook"><span>Facebook</span></a></li>
+								<li><a href="http://www.linkedin.com/company/solutiosoft-llc" class="icon fa-linkedin"><span>Linkedin</span></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+
+	</body>
+</html>

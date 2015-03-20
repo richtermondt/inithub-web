@@ -1,85 +1,148 @@
-<!DOCTYPE html>
-<html lang=en>
-<head>
-<link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon" />
-<meta charset=utf-8>
-{% block title %}
-<title>InitHub - Collaborative Innovation Platform</title>
-{% endblock title %}
-{% block meta %}
-<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
-{% endblock meta %}
-<link rel="stylesheet" href="/static/css/960.css" type="text/css">
-<link rel="stylesheet" href="/static/css/base_style.css" type="text/css">
-
-{% block css %}
-				
-{% endblock css %}
-
-{% block javascript %}
-				
-{% endblock javascript %}
-
-</head>
-{% block body_tag %}
-<body>				
-{% endblock body_tag  %}
-
-
-
-<div id="container" class="container_12">
-	<div id="header" class="grid_12">
-		<h1>
-			InitHub
-		</h1>
-	</div>
-	<div id="navigation" class="grid_12">
-		{% block top_nav %}
-		<ul>
-			<li><a href="/manager/profile/manager/">Profile</a></li>
-			<li><a href="/manager/news/">News</a></li>
-			<li><a href="/manager/collaboration/">Collaboration</a></li>
-			<li><a href="/manager/initiatives/">Initiatives</a></li>
-			<li><a href="/support/faq/">Support</a></li>
-			<li><a href="/manager/logout/">Logout</a></li>
-		</ul>
-		{% endblock top_nav %}
-	</div>
-
-
-	<div id="section-navigation" class="grid_2">
-			{% block side_nav %}
-				
-			{% endblock side_nav %}
-	</div>
-	<div id="content" class="grid_7">
-		{% block content %}
-
-		{% endblock content %}<br/><br/>
-	</div>
-	<div id="aside" class="grid_3">
-		{% block side_nav2 %}
-
-		{% endblock side_nav2 %}
+<!DOCTYPE HTML>
+<html>
+	<head>
+		{% block title %}
+		<title>InitHub - Collaborative Innovation Platform</title>
+		{% endblock title %}
+		{% block meta %}
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+		{% endblock meta %}
 		
-	</div>
-	<div id="footer" class="grid_12">
-<div id="terms">
-<a target="inithub_static" href="/static/terms.html">Terms</a> | <a target="inithub_static" href="/static/privacy.html">Privacy</a> | <a target="inithub_static" href="/static/affiliates.html">Affiliates</a>
-</div>	
-<div id="copyright">
-	<a target="_blank" href="http://opensource.org/licenses/MIT">Open Source licence (MIT)</a> | <a target="_blank" href="https://github.com/richtermondt/inithub-web">Contribute</a>
-</div>
-</div>
-</div>
-</body></html>
+		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+		<script src="/static/js/jquery.min.js"></script>
+		<script src="/static/js/jquery.dropotron.min.js"></script>
+		<script src="/static/js/jquery.slidertron.min.js"></script>
+		<script src="/static/js/skel.min.js"></script>
+		<script src="/static/js/skel-layers.min.js"></script>
+		<script src="/static/js/init.js"></script>
+		<noscript>
+			<link rel="stylesheet" href="/static/css/skel.css" />
+			<link rel="stylesheet" href="/static/css/style.css" />
+			<link rel="stylesheet" href="/static/css/style-desktop.css" />
+		</noscript>
+		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
+		
+		{% block css %}
+				
+		{% endblock css %}
 
+		{% block javascript %}
+						
+		{% endblock javascript %}
+	</head>
+	{% block body_tag %}
+	<body class="left-sidebar" id="top">				
+	{% endblock body_tag  %}
+	
 
+		<!-- Header -->
+			<div id="header">
+				<div class="container">
+						
+					<!-- Logo -->
+						<div id="logo">
+							<h1><a href="index.html">InitHub</a></h1>
+						</div>
+					
+					<!-- Nav -->
+						<nav id="nav">
+							{% block top_nav %}
+							
+				
+							<ul>
+								{% if '/manager/profile/' in request.get_full_path %}
+								<li  class="active">
+								{% else %}
+								<li>
+								{% endif %}
+								<a href="/manager/profile/manager/">Profile</a></li>
+								{% if '/manager/news/' in request.get_full_path %}
+								<li  class="active">
+								{% else %}
+								<li>
+								{% endif %}
+								<a href="/manager/news/">News</a></li>
+								{% if '/manager/collaboration/' in request.get_full_path or '/inbox/' in request.get_full_path %}
+								<li  class="active">
+								{% else %}
+								<li>
+								{% endif %}
+								<a href="/manager/collaboration/">Collaboration</a></li>
+								{% if '/manager/initiative' in request.get_full_path %}
+								<li  class="active">
+								{% else %}
+								<li>
+								{% endif %}
+								<a href="/manager/initiatives/">Initiatives</a></li>
+								{% if '/support/' in request.get_full_path %}
+								<li  class="active">
+								{% else %}
+								<li>
+								{% endif %}
+								<a href="/support/faq/">Support</a></li>
+								<li><a href="/manager/logout/">Logout</a></li>
+							</ul>
+							{% endblock top_nav %}
+						</nav>
 
+				</div>
+			</div>
 
+		<!-- Main -->
+			<div id="main">
+				<div class="container">
 
+					<div class="row">
 
+						<!-- Sidebar -->
+							<div id="sidebar" class="4u">
+	
+								<section>
+									{% block side_nav %}
+				
+									{% endblock side_nav %}
+								</section>
 
+								
+							</div>
 
+						<!-- Content -->
+							<div id="content" class="8u important(collapse)">
+								<article>
+									
+									{% block content %}
 
+									{% endblock content %}
+								</article>
+							</div>
 
+					</div>
+					
+				</div>
+			</div>
+		<!-- Copyright -->
+			<div id="copyright">
+				<a href="#top" class="bubble-top scrolly">Top</a>
+
+				<div class="container">
+					<div class="row">
+						<div class="6u">
+							<span><a target="inithub_static" href="/static/terms.html">Terms</a> | <a target="inithub_static" href="/static/privacy.html">Privacy</a> | 	<a target="_blank" href="http://opensource.org/licenses/MIT">Open Source licence (MIT)</a> | <a target="_blank" href="https://github.com/richtermondt/inithub-web">Contribute</a>
+							</span>
+						</div>
+						<div class="6u">
+							<ul class="social">
+								<li><a href="https://twitter.com/InitHub" class="icon fa-twitter"><span>Twitter</span></a></li>
+								<li><a href="http://www.facebook.com/pages/InitHub/533556133325451" class="icon fa-facebook"><span>Facebook</span></a></li>
+								<li><a href="http://www.linkedin.com/company/solutiosoft-llc" class="icon fa-linkedin"><span>Linkedin</span></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+
+	</body>
+</html>
